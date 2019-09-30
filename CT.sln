@@ -7,7 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ampel", "Ampel\Ampel.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmpelMFC", "AmpelMFC\AmpelMFC.vcxproj", "{D8CCFF2F-0B88-49CC-9AB0-7839EF243685}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomLibrary", "..\CustomLibrary\CustomLibrary\CustomLibrary.vcxitems", "{36375312-801A-4E9A-AB87-7F6012AEB695}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\CustomLibrary\CustomLibrary\CustomLibrary.vcxitems*{1845d5b3-92ac-40c6-b0f0-c75a2acf237e}*SharedItemsImports = 4
+		..\CustomLibrary\CustomLibrary\CustomLibrary.vcxitems*{36375312-801a-4e9a-ab87-7f6012aeb695}*SharedItemsImports = 9
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
