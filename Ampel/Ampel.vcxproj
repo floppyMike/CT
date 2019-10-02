@@ -131,7 +131,17 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\Lights.png" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Includes.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightBody.h" />
+    <ClInclude Include="LightBox.h" />
+    <ClInclude Include="TrafficLight.h" />
+    <ClInclude Include="VehicleLight.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
