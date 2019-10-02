@@ -132,7 +132,7 @@ public:
 	void render()
 	{
 		m_rend.setColor({ 0xFF, 0xFF, 0xFF, 0xFF });
-		m_rend.clear();
+		m_rend.fill();
 
 		m_veh.draw();
 		m_ped.draw();

@@ -38,7 +38,7 @@ public:
 
 private:
 	sdl::RectDraw<> m_box;
-	sdl::CircleDraw<sdl::Renderer, sdl::ButtonEx> m_button;
+	sdl::CircleDraw<sdl::ButtonEx> m_button;
 
 	sdl::UserEvent m_event;
 };
