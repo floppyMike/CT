@@ -32,18 +32,24 @@ public:
 
 	void render()
 	{
-		m_rend.setColor({ 0xFF, 0xFF, 0xFF, 0xFF });
-		m_rend.fill();
+		if (m_doRender)
+		{
+			m_rend.setColor({ 0xFF, 0xFF, 0xFF, 0xFF });
+			m_rend.fill();
 
-		m_veh.draw();
-		m_ped.draw();
+			m_veh.draw();
+			m_ped.draw();
 
-		m_rend.render();
+			m_rend.render();
+
+			m_doRender = false;
+		}
 	}
 
 private:
 	sdl::Window m_win;
 	sdl::Renderer m_rend;
+	bool m_doRender = true;
 
 	std::unique_ptr<sdl::IState> m_state;
 
@@ -148,6 +154,8 @@ inline void Window::SBlink::update()
 		pthis->m_time.start();
 
 		pthis->m_veh.flipLight(1);
+		pthis->m_doRender = true;
+
 		if (m_point >= BLINKING)
 		{
 			pthis->m_veh.change(2, true);
@@ -173,6 +181,7 @@ inline void Window::SPress::input(const SDL_Event& e)
 		pthis->m_veh.change(1, true);
 		pthis->m_veh.change(0, false);
 		pthis->m_veh.change(2, false);
+		pthis->m_doRender = true;
 
 		pthis->m_state = std::make_unique<STurnRed>(pthis);
 	}
@@ -188,6 +197,7 @@ inline void Window::STurnRed::update()
 
 		pthis->m_veh.change(0, true);
 		pthis->m_veh.change(1, false);
+		pthis->m_doRender = true;
 
 		pthis->m_time.stop();
 		pthis->m_time.start();
@@ -204,6 +214,7 @@ inline void Window::STurnGreen::update()
 		pthis->m_veh.change(0, false);
 		pthis->m_veh.change(1, false);
 		pthis->m_veh.change(2, true);
+		pthis->m_doRender = true;
 
 		pthis->m_time.stop();
 
@@ -220,6 +231,7 @@ inline void Window::SPedestrian::update()
 		pthis->m_ped.change(0, true);
 
 		pthis->m_veh.change(1, true);
+		pthis->m_doRender = true;
 
 		pthis->m_time.stop();
 		pthis->m_time.start();

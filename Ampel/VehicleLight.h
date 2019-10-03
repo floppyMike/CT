@@ -21,7 +21,7 @@ public:
 		m_button.event(e);
 	}
 
-	void draw()
+	void draw() override
 	{
 		TrafficLight::draw();
 		m_button.draw();
