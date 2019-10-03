@@ -136,6 +136,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightBody.h" />
     <ClInclude Include="LightBox.h" />
+    <ClInclude Include="SetupState.h" />
     <ClInclude Include="TrafficLight.h" />
     <ClInclude Include="VehicleLight.h" />
     <ClInclude Include="Window.h" />

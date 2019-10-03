@@ -6,15 +6,35 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="Window::State" Collapsed="true">
+      <Struct Name="Window::SBlink" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>main.cpp</NewMemberFileName>
+          <NewMemberFileName>Window.h</NewMemberFileName>
         </TypeIdentifier>
-      </Enum>
+      </Struct>
+      <Struct Name="Window::SPress" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Window.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Window::STurnRed" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Window.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Window::SPedestrian" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Window.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Window::STurnGreen" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Window.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ABACAACAAAghAAAAAAAAAAAAAAAhAAYACAAACAA0AAI=</HashCode>
-      <FileName>main.cpp</FileName>
+      <HashCode>ABACAACAgAgBAAAAAAAAAAAAAAAAAAIACAAACAAUAAI=</HashCode>
+      <FileName>Window.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="m_veh" />
@@ -25,7 +45,7 @@
     <Position X="3.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAIAIAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <FileName>VehicleLight.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="m_button" />
@@ -35,11 +55,11 @@
     <Position X="3.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAgAAAAAIAAAAAIAAAAAAwAAAAAAAAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <FileName>TrafficLight.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="m_body" />
       <Field Name="m_box" />
+      <Field Name="m_body" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Light" Collapsed="true">
@@ -47,37 +67,30 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Enum Name="Light::Color" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>main.cpp</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAEIAAgABAAAAAACBAAAAAAgAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <FileName>Light.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LightBody">
     <Position X="3.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAAAAAIAAAAAIAAAAAAAAAABAAAACEA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <FileName>LightBody.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LightBox">
     <Position X="0.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAgAAAAAIAAAAAIAAAAAAIAAAEAAAABAA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <FileName>LightBox.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Button">
     <Position X="3.75" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAEAAAAAAAAgAAAAAIACgAAAAAAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <FileName>Button.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
