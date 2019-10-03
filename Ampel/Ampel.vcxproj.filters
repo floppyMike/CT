@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\TrafficLight">
+      <UniqueIdentifier>{43ce5ae7-3734-42a8-8da0-a51252fe1693}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Setup">
+      <UniqueIdentifier>{ab59cf90-c598-45ea-b77d-912512e58e6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -20,32 +26,38 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Includes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LightBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LightBody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TrafficLight.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VehicleLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SetupState.h">
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="LightBody.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="LightBox.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficLight.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleLight.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Setup.ipp">
+      <Filter>Header Files\Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="RoadLights.h">
+      <Filter>Header Files\Setup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

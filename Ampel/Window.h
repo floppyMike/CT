@@ -1,46 +1,41 @@
 #pragma once
 
 #include "Includes.h"
-#include "Light.h"
-#include "VehicleLight.h"
-#include "TrafficLight.h"
+#include "Application.h"
 
-#include "SetupState.h"
 
 class Window
 {
 	using Duration = std::chrono::steady_clock::duration;
 
-	struct SBlink;
-	struct SPress;
-	struct STurnRed;
-	struct SPedestrian;
-	struct STurnGreen;
+	class SSetup;
 
 public:
-	Window();
+	Window()
+		: m_win("Ampel", WINDOW_SIZE)
+		, m_rend(&m_win)
+		, m_app(&m_rend)
+	{
+	}
 
 	void event(const SDL_Event& e)
 	{
-		m_state->input(e);
 	}
 
 	void update()
 	{
-		m_state->update();
 	}
 
 	void fixedUpdate() {}
 
 	void render()
 	{
-		if (m_doRender)
+		if (true)
 		{
 			m_rend.setColor({ 0xFF, 0xFF, 0xFF, 0xFF });
 			m_rend.fill();
 
-			m_veh.draw();
-			m_ped.draw();
+			m_app.draw();
 
 			m_rend.render();
 
@@ -53,10 +48,5 @@ private:
 	sdl::Renderer m_rend;
 	bool m_doRender = true;
 
-	std::unique_ptr<sdl::IState> m_state;
-
-	ctl::Timer m_time;
-
-	VehicleLight m_veh;
-	TrafficLight m_ped;
+	App m_app;
 };
