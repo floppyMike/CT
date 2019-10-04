@@ -19,7 +19,11 @@ public:
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			_handleObjectOnMouse_(e);
+			_spawnLine_(e);
+			break;
+
+		case SDL_MOUSEBUTTONUP:
+			_putLine_(e);
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -46,6 +50,7 @@ private:
 	App* pthis;
 
 	sdl::RectDraw<> m_seperator;
+	sdl::LineDraw<>* m_currentLine;
 
 
 	void _createTrafficLightOnMouse_(const SDL_Event& e)
@@ -82,13 +87,41 @@ private:
 		}
 	}
 
-	void _handleObjectOnMouse_(const SDL_Event& e)
+	void _spawnLine_(const SDL_Event& e)
 	{
-		
+		sdl::Point<int> pos;
+		SDL_GetMouseState(&pos.x, &pos.y);
+
+		auto* select = pthis->insideWhich(pos);
+
+		if (select != nullptr)
+			m_currentLine = &pthis->m_lines.emplace_back(pthis->m_r)
+				.shape({ { select->shape().x + 2, select->shape().y + 2 }, pos });
 	}
 
 	void _translateBasedOnMov_(const SDL_Event& e)
 	{
-		
+		if (m_currentLine != nullptr)
+			m_currentLine->shape({ m_currentLine->shape().pos1(), { e.motion.x, e.motion.y } });
+	}
+
+	void _putLine_(const SDL_Event& e)
+	{
+		sdl::Point<int> pos;
+		SDL_GetMouseState(&pos.x, &pos.y);
+
+		if (m_currentLine != nullptr)
+		{
+			auto* select = pthis->insideWhich(pos);
+
+			if (select != nullptr)
+			{
+				m_currentLine->shape({ m_currentLine->shape().pos1(), { select->shape().pos() + sdl::Point(2, 2) } });
+			}
+			else
+				pthis->m_lines.pop_back();
+
+			m_currentLine = nullptr;
+		}
 	}
 };
