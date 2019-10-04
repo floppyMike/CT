@@ -63,7 +63,7 @@
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
     <ClInclude Include="RoadsDB.h">
-      <Filter>Header Files\Setup</Filter>
+      <Filter>Header Files\Mapping</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

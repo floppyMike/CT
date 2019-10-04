@@ -85,10 +85,22 @@ private:
 
 	void _handleObjectOnMouse_(const SDL_Event& e)
 	{
-		sdl::Point<int> pos;
-		SDL_GetMouseState(&pos.x, &pos.y);
+		sdl::Point<int> mouse;
+		SDL_GetMouseState(&mouse.x, &mouse.y);
 
-		m_selected = pthis->m_roads.insideWhich<Road*>(pos);
+		auto select = pthis->m_roads.insideWhich<Road*>(mouse);
+
+		if (select != nullptr)
+			if (select->light.isInIn(mouse))
+			{
+
+			}
+			else if (select->light.isInOut(mouse))
+			{
+
+			}
+			else
+				m_selected = select;
 	}
 
 	void _translateBasedOnMov_(const SDL_Event& e)
