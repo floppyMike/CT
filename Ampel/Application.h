@@ -24,13 +24,22 @@ public:
 	void draw()
 	{
 		m_state->draw();
+
+		for (auto& i : m_roads)
+			i.light.draw();
+
+		m_r->setColor({ 0, 0, 0, 0xFF });
+		for (const auto& i : m_nodes)
+			i.drawFilled();
 	}
 
 private:
 	sdl::Renderer* m_r;
 
 	std::unique_ptr<sdl::IState> m_state;
-	RoadsDB m_roads;
+
+	LightsPairsDB m_roads;
+	std::vector<sdl::RectDraw<>> m_nodes;
 };
 
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "TrafficLight.h"
+#include "LightBox.h"
 
-class RoadLights
+class LightPair
 {
 public:
 	static constexpr int WIDTH = 21;
@@ -10,7 +10,7 @@ public:
 	static constexpr sdl::Dim<int> IN_OUT_SHAPE = sdl::Dim(5, 5);
 	static constexpr int IN_OUT_DIS = 10;
 
-	RoadLights(sdl::Renderer* r, const sdl::Point<int>& pos)
+	LightPair(sdl::Renderer* r, const sdl::Point<int>& pos)
 		: m_veh(r, pos, WIDTH, { Light::RED, Light::YELLOW, Light::GREEN })
 		, m_ped(r, { pos.x + WIDTH + 5, pos.y }, WIDTH, { Light::RED, Light::GREEN })
 		, m_out(r)

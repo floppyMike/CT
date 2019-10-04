@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 		sdl::RunLoop<decltype(win)> run;
 		run.addWindow(&win);
 
-		run.run(30);
+		run.run(60);
 	}
 	catch (const std::exception& w)
 	{

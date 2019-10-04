@@ -65,6 +65,9 @@
     <ClInclude Include="RoadsDB.h">
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
+    <ClInclude Include="Road.h">
+      <Filter>Header Files\Mapping</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

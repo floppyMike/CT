@@ -1,27 +1,27 @@
 #pragma once
 
 #include "Includes.h"
-#include "RoadLights.h"
+#include "Road.h"
 
-struct Road
+
+struct TrafficNode
 {
-	Road(sdl::Renderer* r, const sdl::Point<int>& pos)
+	TrafficNode(sdl::Renderer* r, const sdl::Point<int>& pos)
 		: light(r, pos)
 	{
 	}
 
-	RoadLights light;
-	//std::chrono::steady_clock::time_point onTill;
-	//std::vector<size_t> path;
+	LightPair light;
+	Road road;
 };
 
 
-class RoadsDB
+class LightsPairsDB
 {
 public:
-	using iterator = std::vector<Road>::iterator;
+	using iterator = std::vector<TrafficNode>::iterator;
 
-	RoadsDB() = default;
+	LightsPairsDB() = default;
 
 	template<typename... Arg>
 	auto& push(Arg&&... args)
@@ -71,12 +71,12 @@ public:
 
 		if constexpr (std::is_same_v<Ret, iterator>)
 			return iter;
-		else if constexpr (std::is_same_v<Ret, Road*>)
+		else if constexpr (std::is_same_v<Ret, TrafficNode*>)
 			return iter == m_lights.end() ? nullptr : &*iter;
 		else
 			static_assert(false, "Incombatible type.");
 	}
 
 private:
-	std::vector<Road> m_lights;
+	std::vector<TrafficNode> m_lights;
 };
