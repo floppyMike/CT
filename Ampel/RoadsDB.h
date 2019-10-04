@@ -19,12 +19,19 @@ struct Road
 class RoadsDB
 {
 public:
+	using iterator = std::vector<Road>::iterator;
+
 	RoadsDB() = default;
 
 	template<typename... Arg>
 	auto& push(Arg&&... args)
 	{
 		return m_lights.emplace_back(std::forward<Arg>(args)...);
+	}
+
+	void erase(iterator iter)
+	{
+		m_lights.erase(iter);
 	}
 
 	auto begin() const noexcept
@@ -45,17 +52,29 @@ public:
 		return m_lights.end();
 	}
 
-	Road* insideWhich(const sdl::Point<int>& p) noexcept
+	template<typename Ret>
+	Ret insideWhich(const sdl::Point<int>& p) noexcept
 	{
-		Road* ptr = nullptr;
-		for (auto iter = m_lights.rbegin(); iter != m_lights.rend(); ++iter)
-			if (sdl::collision(iter->light.shape(), p))
+		auto iter = m_lights.end();
+		if (!m_lights.empty())
+			do
 			{
-				ptr = &*iter;
-				break;
-			}
+				--iter;
+				if (sdl::collision(iter->light.shape(), p))
+					break;
+				else if (iter == m_lights.begin())
+				{
+					iter = m_lights.end();
+					break;
+				}
+			} while (true);
 
-		return ptr;
+		if constexpr (std::is_same_v<Ret, iterator>)
+			return iter;
+		else if constexpr (std::is_same_v<Ret, Road*>)
+			return iter == m_lights.end() ? nullptr : &*iter;
+		else
+			static_assert(false, "Incombatible type.");
 	}
 
 private:
