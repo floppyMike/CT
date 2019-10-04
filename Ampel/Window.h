@@ -20,10 +20,12 @@ public:
 
 	void event(const SDL_Event& e)
 	{
+		m_app.input(e);
 	}
 
 	void update()
 	{
+		m_app.update();
 	}
 
 	void fixedUpdate() {}
@@ -38,7 +40,6 @@ public:
 			m_app.draw();
 
 			m_rend.render();
-
 			m_doRender = false;
 		}
 	}

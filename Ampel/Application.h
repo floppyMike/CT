@@ -6,17 +6,14 @@
 
 struct Road
 {
-	struct
+	Road(sdl::Renderer* r, const sdl::Point<int>& pos)
+		: light(r, pos)
 	{
-		TrafficLight light;
-		std::chrono::steady_clock::time_point onTill;
-		std::vector<size_t> path;
-	} data;
+	}
 
-	struct
-	{
-		sdl::Point<int> loc;
-	} graphics;
+	RoadLights light;
+	//std::chrono::steady_clock::time_point onTill;
+	//std::vector<size_t> path;
 };
 
 
@@ -26,6 +23,29 @@ class App
 
 public:
 	App(sdl::Renderer* r);
+
+	Road* insideWhich(const sdl::Point<int>& p) noexcept
+	{
+		Road* ptr = nullptr;
+		for (auto iter = m_lights.rbegin(); iter != m_lights.rend(); ++iter)
+			if (sdl::collision(iter->light.shape(), p))
+			{
+				ptr = &*iter;
+				break;
+			}
+
+		return ptr;
+	}
+
+	void input(const SDL_Event& e)
+	{
+		m_state->input(e);
+	}
+
+	void update()
+	{
+		m_state->update();
+	}
 
 	void draw()
 	{

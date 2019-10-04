@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Setup">
       <UniqueIdentifier>{ab59cf90-c598-45ea-b77d-912512e58e6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Mapping">
+      <UniqueIdentifier>{f416a305-719e-4328-9e2d-b5629dd57a01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,7 +60,7 @@
       <Filter>Header Files\Setup</Filter>
     </ClInclude>
     <ClInclude Include="RoadLights.h">
-      <Filter>Header Files\Setup</Filter>
+      <Filter>Header Files\Mapping</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
