@@ -1,32 +1,6 @@
 
 class App::SSetup : public sdl::IState
 {
-	void _createTrafficLightOnMouse_(const SDL_Event& e)
-	{
-		sdl::Point<int> pos;
-		SDL_GetMouseState(&pos.x, &pos.y);
-
-		if (e.key.repeat == 0 && e.key.keysym.sym == SDLK_c &&
-			sdl::collision(sdl::Rect(0, 0, (WINDOW_SIZE.w * 3 >> 2) - RoadLights::TOTAL_WIDTH, WINDOW_SIZE.h), pos))
-		{
-			pthis->m_lights.emplace_back(pthis->m_r, pos);
-		}
-	}
-
-	void _selectObjectOnMouse_(const SDL_Event& e)
-	{
-		sdl::Point<int> pos;
-		SDL_GetMouseState(&pos.x, &pos.y);
-
-		m_selected = pthis->insideWhich(pos);
-	}
-
-	void _translateBasedOnMov_(const SDL_Event& e)
-	{
-		if (m_selected != nullptr)
-			m_selected->light.translate({ e.motion.xrel, e.motion.yrel });
-	}
-
 public:
 	SSetup(App* p)
 		: pthis(p)
@@ -71,7 +45,7 @@ public:
 		m_seperator.renderer()->setColor({ 0, 0, 0, 0xFF });
 		m_seperator.draw();
 
-		for (auto& i : pthis->m_lights)
+		for (auto& i : pthis->m_roads)
 			i.light.draw();
 	}
 
@@ -80,4 +54,31 @@ private:
 
 	sdl::RectDraw<> m_seperator;
 	Road* m_selected = nullptr;
+
+
+	void _createTrafficLightOnMouse_(const SDL_Event& e)
+	{
+		sdl::Point<int> pos;
+		SDL_GetMouseState(&pos.x, &pos.y);
+
+		if (e.key.repeat == 0 && e.key.keysym.sym == SDLK_c &&
+			sdl::collision(sdl::Rect(0, 0, (WINDOW_SIZE.w * 3 >> 2) - RoadLights::TOTAL_WIDTH, WINDOW_SIZE.h), pos))
+		{
+			pthis->m_roads.push(pthis->m_r, pos);
+		}
+	}
+
+	void _selectObjectOnMouse_(const SDL_Event& e)
+	{
+		sdl::Point<int> pos;
+		SDL_GetMouseState(&pos.x, &pos.y);
+
+		m_selected = pthis->m_roads.insideWhich(pos);
+	}
+
+	void _translateBasedOnMov_(const SDL_Event& e)
+	{
+		if (m_selected != nullptr)
+			m_selected->light.translate({ e.motion.xrel, e.motion.yrel });
+	}
 };

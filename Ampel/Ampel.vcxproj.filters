@@ -62,6 +62,9 @@
     <ClInclude Include="RoadLights.h">
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
+    <ClInclude Include="RoadsDB.h">
+      <Filter>Header Files\Setup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
