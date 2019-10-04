@@ -22,10 +22,6 @@ public:
 			_handleObjectOnMouse_(e);
 			break;
 
-		case SDL_MOUSEBUTTONUP:
-			m_selected = nullptr;
-			break;
-
 		case SDL_MOUSEMOTION:
 			_translateBasedOnMov_(e);
 			break;
@@ -50,7 +46,6 @@ private:
 	App* pthis;
 
 	sdl::RectDraw<> m_seperator;
-	TrafficNode* m_selected = nullptr;
 
 
 	void _createTrafficLightOnMouse_(const SDL_Event& e)
@@ -89,27 +84,11 @@ private:
 
 	void _handleObjectOnMouse_(const SDL_Event& e)
 	{
-		sdl::Point<int> mouse;
-		SDL_GetMouseState(&mouse.x, &mouse.y);
-
-		auto select = pthis->m_roads.insideWhich<TrafficNode*>(mouse);
-
-		if (select != nullptr)
-			if (select->light.isInIn(mouse))
-			{
-
-			}
-			else if (select->light.isInOut(mouse))
-			{
-
-			}
-			else
-				m_selected = select;
+		
 	}
 
 	void _translateBasedOnMov_(const SDL_Event& e)
 	{
-		if (m_selected != nullptr)
-			m_selected->light.translate({ e.motion.xrel, e.motion.yrel });
+		
 	}
 };
