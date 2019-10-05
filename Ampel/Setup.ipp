@@ -94,7 +94,7 @@ private:
 		case SDLK_c:
 			if (e.key.repeat == 0 &&
 				sdl::collision(sdl::Rect(0, 0, (WINDOW_SIZE.w * 3 >> 2) - LightPair::TOTAL_WIDTH, WINDOW_SIZE.h), pos))
-				m_selectedNode.select(&pthis->m_roads.push(pthis->m_r, pos));
+				&pthis->m_roads.push(pthis->m_r, pos);
 			break;
 
 		case SDLK_d:
@@ -151,14 +151,10 @@ private:
 		SDL_GetMouseState(&pos.x, &pos.y);
 
 		auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&pos](const TrafficNode& n)
-			{
-				return sdl::collision(n.light.shape(), pos);
-			});
+			{ return sdl::collision(n.light.shape(), pos); });
 
 		if (select != pthis->m_roads.rend())
 			m_selectedNode.select(&*select);
-		else
-			m_selectedNode.clear();
 	}
 
 	void _translateBasedOnMov_(const SDL_Event& e)
@@ -177,17 +173,14 @@ private:
 			Node* toNode = nullptr;
 
 			auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&pos](const Node& r)
-				{
-					return sdl::collision(r.shape(), pos);
-				});
+				{ return sdl::collision(r.shape(), pos); });
+
 			if (select != pthis->m_nodes.rend())
 				toNode = &*select;
 			else
 			{
 				auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&pos](const TrafficNode& n)
-					{
-						return sdl::collision(n.light.inNode().shape(), pos);
-					});
+					{ return sdl::collision(n.light.inNode().shape(), pos); });
 
 				if (select != pthis->m_roads.rend())
 					toNode = &select->light.inNode();
