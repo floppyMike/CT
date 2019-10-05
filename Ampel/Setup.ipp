@@ -52,11 +52,6 @@ public:
 		}
 	}
 
-	void update() override
-	{
-
-	}
-
 	void draw() override
 	{
 		m_selectedNode.draw();

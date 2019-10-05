@@ -41,22 +41,10 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\TrafficLight</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Header Files\TrafficLight</Filter>
     </ClInclude>
-    <ClInclude Include="LightBody.h">
-      <Filter>Header Files\TrafficLight</Filter>
-    </ClInclude>
     <ClInclude Include="LightBox.h">
-      <Filter>Header Files\TrafficLight</Filter>
-    </ClInclude>
-    <ClInclude Include="TrafficLight.h">
-      <Filter>Header Files\TrafficLight</Filter>
-    </ClInclude>
-    <ClInclude Include="VehicleLight.h">
       <Filter>Header Files\TrafficLight</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">

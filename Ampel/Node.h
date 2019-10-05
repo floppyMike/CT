@@ -25,7 +25,6 @@ public:
 
 	void draw()
 	{
-		m_rect.renderer()->setColor(sdl::BLACK);
 		m_rect.drawFilled();
 	}
 

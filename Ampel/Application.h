@@ -23,23 +23,13 @@ public:
 		m_state->input(e);
 	}
 
-	void update()
-	{
-		m_state->update();
-	}
-
 	void draw()
 	{
+		_drawTrafficNodes_();
+		_drawNodes_();
+		_drawLines_();
+
 		m_state->draw();
-
-		for (auto& i : m_roads)
-			i.light.draw();
-
-		for (auto& i : m_nodes)
-			i.draw();
-
-		for (const auto& i : m_lines)
-			i.draw();
 	}
 
 private:
@@ -50,6 +40,24 @@ private:
 	TrafficNodeDB m_roads;
 	NodeDB m_nodes;
 	LinkDB m_lines;
+
+	void _drawTrafficNodes_()
+	{
+		for (auto& i : m_roads)
+			i.light.draw();
+	}
+
+	void _drawNodes_()
+	{
+		for (auto& i : m_nodes)
+			i.draw();
+	}
+
+	void _drawLines_()
+	{
+		for (const auto& i : m_lines)
+			i.draw();
+	}
 };
 
 

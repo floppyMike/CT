@@ -132,10 +132,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Button.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="Light.h" />
-    <ClInclude Include="LightBody.h" />
     <ClInclude Include="LightBox.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="RoadLights.h" />
@@ -143,8 +141,6 @@
     <ClInclude Include="Selected.h" />
     <ClInclude Include="Setup.ipp" />
     <ClInclude Include="Simulation.ipp" />
-    <ClInclude Include="TrafficLight.h" />
-    <ClInclude Include="VehicleLight.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
