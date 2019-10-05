@@ -4,11 +4,8 @@ class App::SSetup : public sdl::IState
 public:
 	SSetup(App* p)
 		: pthis(p)
-		, m_seperator(p->m_r)
 		, m_selectedNode(p->m_r)
 	{
-		const auto xCoord = WINDOW_SIZE.w * 3 >> 2;
-		m_seperator.shape({ xCoord, -1, 5, WINDOW_SIZE.h + 2 });
 	}
 
 	void input(const SDL_Event& e) override
@@ -38,16 +35,16 @@ public:
 
 		case SDL_MOUSEBUTTONDOWN:
 			if (m_selectedNode.isSelected())
-				_spawnLine_(e);
+				_spawnLine_();
 			_select_();
 			break;
 
 		case SDL_MOUSEBUTTONUP:
-			_putLine_(e);
+			_putLine_();
 			break;
 
 		case SDL_MOUSEMOTION:
-			_translateBasedOnMov_(e);
+			_translateLine_(e);
 			break;
 
 		default:
@@ -62,18 +59,13 @@ public:
 
 	void draw() override
 	{
-		m_seperator.renderer()->setColor(sdl::BLACK);
-		m_seperator.draw();
-
 		m_selectedNode.draw();
 	}
 
 private:
 	App* pthis;
 
-	sdl::RectDraw<> m_seperator;
 	sdl::LineDraw<>* m_onMouseLine;
-
 	Selected m_selectedNode;
 
 
@@ -105,7 +97,7 @@ private:
 		pthis->m_nodes.emplace_back(pthis->m_r, pos);
 	}
 
-	void _spawnLine_(const SDL_Event& e)
+	void _spawnLine_()
 	{
 		sdl::Point<int> pos;
 		SDL_GetMouseState(&pos.x, &pos.y);
@@ -142,19 +134,19 @@ private:
 			m_selectedNode.select(&*select);
 	}
 
-	void _translateBasedOnMov_(const SDL_Event& e)
+	void _translateLine_(const SDL_Event& e)
 	{
 		if (m_onMouseLine != nullptr)
 			m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { e.motion.x, e.motion.y } });
 	}
 
-	void _putLine_(const SDL_Event& e)
+	void _putLine_()
 	{
-		sdl::Point<int> pos;
-		SDL_GetMouseState(&pos.x, &pos.y);
-
 		if (m_onMouseLine != nullptr)
 		{
+			sdl::Point<int> pos;
+			SDL_GetMouseState(&pos.x, &pos.y);
+
 			Node* toNode = nullptr;
 
 			auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&pos](const Node& r)
