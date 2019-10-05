@@ -1,12 +1,14 @@
 #pragma once
 
 #include <SDL.h>
-#include <CustomLibrary/SDL/SDLWindow.h>
+
 #include <CustomLibrary/SDL/Engine.h>
 #include <CustomLibrary/SDL/Geometry.h>
 #include <CustomLibrary/SDL/Button.h>
 #include <CustomLibrary/SDL/Event.h>
-#include <CustomLibrary/Graph.h> 
+#include <CustomLibrary/SDL/State.h>
+
+#include <future>
 
 using namespace ctl;
 using namespace std::chrono_literals;

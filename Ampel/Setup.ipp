@@ -28,6 +28,10 @@ public:
 					_createNode_();
 					break;
 
+				case SDLK_s:
+					_startSim_();
+					break;
+
 				default:
 					break;
 				}
@@ -90,6 +94,11 @@ private:
 		SDL_GetMouseState(&pos.x, &pos.y);
 
 		pthis->m_nodes.emplace_back(pthis->m_r, pos);
+	}
+
+	void _startSim_()
+	{
+		pthis->m_state.set<SSimulation>(pthis);
 	}
 
 	void _spawnLine_()

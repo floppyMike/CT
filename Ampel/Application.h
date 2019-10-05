@@ -4,6 +4,8 @@
 #include "RoadsDB.h"
 #include "Node.h"
 #include "Selected.h"
+#include "SequenceGenerator.h"
+
 
 using TrafficNodeDB = std::vector<TrafficNode>;
 using NodeDB = std::vector<Node>;
@@ -30,12 +32,14 @@ public:
 		_drawLines_();
 
 		m_state->draw();
+
+		m_state.update();
 	}
 
 private:
 	sdl::Renderer* m_r;
 
-	std::unique_ptr<sdl::IState> m_state;
+	sdl::StateManager<sdl::IState> m_state;
 
 	TrafficNodeDB m_roads;
 	NodeDB m_nodes;
@@ -72,5 +76,6 @@ private:
 App::App(sdl::Renderer* r)
 	: m_r(r)
 {
-	m_state = std::make_unique<SSetup>(this);
+	m_state.set<SSetup>(this);
+	m_state.update();
 }

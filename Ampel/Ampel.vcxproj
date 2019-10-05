@@ -139,6 +139,7 @@
     <ClInclude Include="RoadLights.h" />
     <ClInclude Include="RoadsDB.h" />
     <ClInclude Include="Selected.h" />
+    <ClInclude Include="SequenceGenerator.h" />
     <ClInclude Include="Setup.ipp" />
     <ClInclude Include="Simulation.ipp" />
     <ClInclude Include="Window.h" />
