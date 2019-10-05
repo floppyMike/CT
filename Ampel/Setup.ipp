@@ -62,6 +62,28 @@ private:
 	Selected m_selectedNode;
 
 
+	template<typename Iter, typename T>
+	T* _mouseOn_(Iter begin, Iter end, T& obj)
+	{
+		sdl::Point<int> pos;
+		SDL_GetMouseState(&pos.x, &pos.y);
+
+		if (sdl::collision(obj, pos))
+			return &obj;
+		else
+		{
+			auto select = std::find_if(begin, end, [&pos](const auto& r)
+				{
+					return sdl::collision(r.shape(), pos);
+				});
+
+			if (select != end)
+				return &*select;
+			else
+				return nullptr;
+		}
+	}
+
 	void _createTrafficLightOnMouse_(const SDL_Event& e)
 	{
 		sdl::Point<int> pos;
@@ -72,9 +94,7 @@ private:
 		case SDLK_c:
 			if (e.key.repeat == 0 &&
 				sdl::collision(sdl::Rect(0, 0, (WINDOW_SIZE.w * 3 >> 2) - LightPair::TOTAL_WIDTH, WINDOW_SIZE.h), pos))
-			{
 				m_selectedNode.select(&pthis->m_roads.push(pthis->m_r, pos));
-			}
 			break;
 
 		case SDLK_d:
@@ -92,9 +112,7 @@ private:
 
 		case SDLK_p:
 			if (e.key.repeat == 0)
-			{
 				pthis->m_nodes.emplace_back(pthis->m_r, pos);
-			}
 			break;
 
 		default:
@@ -108,14 +126,12 @@ private:
 		SDL_GetMouseState(&pos.x, &pos.y);
 
 		Node* fromNode = nullptr;
-		if (sdl::collision(m_selectedNode.get().light.inNode().shape(), pos))
-			fromNode = &m_selectedNode.get().light.inNode();
+		if (sdl::collision(m_selectedNode.get().light.outNode().shape(), pos))
+			fromNode = &m_selectedNode.get().light.outNode();
 		else
 		{
 			auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&pos](const Node& r)
-				{
-					return sdl::collision(r.shape(), pos);
-				});
+				{ return sdl::collision(r.shape(), pos); });
 
 			if (select != pthis->m_nodes.rend())
 				fromNode = &*select;
@@ -158,15 +174,29 @@ private:
 
 		if (m_onMouseLine != nullptr)
 		{
+			Node* toNode = nullptr;
+
 			auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&pos](const Node& r)
 				{
 					return sdl::collision(r.shape(), pos);
 				});
-
 			if (select != pthis->m_nodes.rend())
+				toNode = &*select;
+			else
 			{
-				m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { select->shape().pos() + sdl::Point(2, 2) } });
+				auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&pos](const TrafficNode& n)
+					{
+						return sdl::collision(n.light.inNode().shape(), pos);
+					});
+
+				if (select != pthis->m_roads.rend())
+					toNode = &select->light.inNode();
+				else
+					toNode = nullptr;
 			}
+
+			if (toNode != nullptr)
+				m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { toNode->shape().pos() + sdl::Point(2, 2) } });
 			else
 				pthis->m_lines.pop_back();
 
