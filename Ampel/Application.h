@@ -29,9 +29,8 @@ public:
 		for (auto& i : m_roads)
 			i.light.draw();
 
-		m_r->setColor({ 0, 0, 0, 0xFF });
-		for (const auto& i : m_nodes)
-			i.drawFilled();
+		for (auto& i : m_nodes)
+			i.draw();
 
 		for (const auto& i : m_lines)
 			i.draw();
@@ -44,7 +43,7 @@ private:
 
 	LightsPairsDB m_roads;
 
-	std::vector<sdl::RectDraw<>> m_nodes;
+	std::vector<Node> m_nodes;
 	std::vector<sdl::LineDraw<>> m_lines;
 };
 

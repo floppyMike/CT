@@ -31,14 +31,14 @@ public:
 		return { { m_veh.shape().pos() }, { TOTAL_WIDTH, m_veh.shape().h + IN_OUT_DIS + Node::DIM.h } };
 	}
 
-	const auto& outShape() const noexcept
+	auto& outNode() noexcept
 	{
-		return m_out.shape();
+		return m_out;
 	}
 
-	const auto& inShape() const noexcept
+	auto& inNode() noexcept
 	{
-		return m_in.shape();
+		return m_in;
 	}
 
 	void translate(const sdl::Point<int>& delta)

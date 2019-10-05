@@ -23,7 +23,7 @@ public:
 		m_selected = nullptr;
 	}
 
-	auto& selected() noexcept
+	auto& get() noexcept
 	{
 		return *m_selected;
 	}
