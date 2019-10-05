@@ -3,8 +3,6 @@
 #include "Includes.h"
 #include "RoadLights.h"
 
-using Node = sdl::Point<int>;
-
 
 class Road
 {

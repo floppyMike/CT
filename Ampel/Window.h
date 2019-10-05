@@ -8,7 +8,7 @@ class Window
 {
 	using Duration = std::chrono::steady_clock::duration;
 
-	class SSetup;
+	//class SSetup;
 
 public:
 	Window()
