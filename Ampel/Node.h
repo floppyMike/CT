@@ -7,7 +7,6 @@ class Node
 public:
 	static constexpr sdl::Dim<int> DIM = sdl::Dim(5, 5);
 
-	Node() = delete;
 	Node(sdl::Renderer* r, const sdl::Point<int>& p)
 		: m_rect(r)
 	{

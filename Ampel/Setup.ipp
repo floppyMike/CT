@@ -49,8 +49,6 @@ public:
 		m_seperator.draw();
 
 		m_selectedNode.draw();
-
-
 	}
 
 private:
@@ -62,28 +60,6 @@ private:
 	Selected m_selectedNode;
 
 
-	template<typename Iter, typename T>
-	T* _mouseOn_(Iter begin, Iter end, T& obj)
-	{
-		sdl::Point<int> pos;
-		SDL_GetMouseState(&pos.x, &pos.y);
-
-		if (sdl::collision(obj, pos))
-			return &obj;
-		else
-		{
-			auto select = std::find_if(begin, end, [&pos](const auto& r)
-				{
-					return sdl::collision(r.shape(), pos);
-				});
-
-			if (select != end)
-				return &*select;
-			else
-				return nullptr;
-		}
-	}
-
 	void _createTrafficLightOnMouse_(const SDL_Event& e)
 	{
 		sdl::Point<int> pos;
@@ -94,16 +70,14 @@ private:
 		case SDLK_c:
 			if (e.key.repeat == 0 &&
 				sdl::collision(sdl::Rect(0, 0, (WINDOW_SIZE.w * 3 >> 2) - LightPair::TOTAL_WIDTH, WINDOW_SIZE.h), pos))
-				&pthis->m_roads.push(pthis->m_r, pos);
+				&pthis->m_roads.emplace_back(pthis->m_r, pos);
 			break;
 
 		case SDLK_d:
 			if (e.key.repeat == 0)
 			{
 				auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&pos](const TrafficNode& n)
-					{
-						return sdl::collision(n.light.shape(), pos);
-					});
+					{ return sdl::collision(n.light.shape(), pos); });
 
 				if (select != pthis->m_roads.rend())
 					pthis->m_roads.erase(select.base() - 1);

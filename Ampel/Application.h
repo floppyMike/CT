@@ -5,9 +5,15 @@
 #include "Node.h"
 #include "Selected.h"
 
+using TrafficNodeDB = std::vector<TrafficNode>;
+using NodeDB = std::vector<Node>;
+using LinkDB = std::vector<sdl::LineDraw<>>;
+
+
 class App
 {
 	class SSetup;
+	class SSimulation;
 
 public:
 	App(sdl::Renderer* r);
@@ -41,10 +47,9 @@ private:
 
 	std::unique_ptr<sdl::IState> m_state;
 
-	LightsPairsDB m_roads;
-
-	std::vector<Node> m_nodes;
-	std::vector<sdl::LineDraw<>> m_lines;
+	TrafficNodeDB m_roads;
+	NodeDB m_nodes;
+	LinkDB m_lines;
 };
 
 
@@ -54,6 +59,7 @@ private:
 
 
 #include "Setup.ipp"
+#include "Simulation.ipp"
 
 App::App(sdl::Renderer* r)
 	: m_r(r)

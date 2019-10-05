@@ -142,6 +142,7 @@
     <ClInclude Include="RoadsDB.h" />
     <ClInclude Include="Selected.h" />
     <ClInclude Include="Setup.ipp" />
+    <ClInclude Include="Simulation.ipp" />
     <ClInclude Include="TrafficLight.h" />
     <ClInclude Include="VehicleLight.h" />
     <ClInclude Include="Window.h" />

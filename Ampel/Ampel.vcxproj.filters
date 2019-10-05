@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Mapping">
       <UniqueIdentifier>{f416a305-719e-4328-9e2d-b5629dd57a01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Simulation">
+      <UniqueIdentifier>{7f1dc697-6d4d-4f52-ae3d-027079e9e4fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DB">
+      <UniqueIdentifier>{ae137734-35b4-4bd8-a73a-16c3555d59f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,14 +68,17 @@
     <ClInclude Include="RoadLights.h">
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
-    <ClInclude Include="RoadsDB.h">
-      <Filter>Header Files\Mapping</Filter>
-    </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
     <ClInclude Include="Selected.h">
       <Filter>Header Files\Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.ipp">
+      <Filter>Header Files\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="RoadsDB.h">
+      <Filter>Header Files\DB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
