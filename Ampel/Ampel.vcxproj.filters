@@ -65,11 +65,11 @@
     <ClInclude Include="RoadsDB.h">
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
-    <ClInclude Include="Road.h">
-      <Filter>Header Files\Mapping</Filter>
-    </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Header Files\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="Selected.h">
+      <Filter>Header Files\Setup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

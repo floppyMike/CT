@@ -31,6 +31,16 @@ public:
 		return { { m_veh.shape().pos() }, { TOTAL_WIDTH, m_veh.shape().h + IN_OUT_DIS + Node::DIM.h } };
 	}
 
+	const auto& outShape() const noexcept
+	{
+		return m_out.shape();
+	}
+
+	const auto& inShape() const noexcept
+	{
+		return m_in.shape();
+	}
+
 	void translate(const sdl::Point<int>& delta)
 	{
 		m_veh.translate(delta);
@@ -58,6 +68,6 @@ private:
 	LightBox m_veh;
 	LightBox m_ped;
 
-	NodeStart m_out;
+	Node m_out;
 	Node m_in;
 };

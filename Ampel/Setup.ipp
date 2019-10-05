@@ -5,6 +5,7 @@ public:
 	SSetup(App* p)
 		: pthis(p)
 		, m_seperator(p->m_r)
+		, m_currentNode(p->m_r)
 	{
 		const auto xCoord = WINDOW_SIZE.w * 3 >> 2;
 		m_seperator.shape({ xCoord, -1, 5, WINDOW_SIZE.h + 2 });
@@ -42,8 +43,10 @@ public:
 
 	void draw() override
 	{
-		m_seperator.renderer()->setColor({ 0, 0, 0, 0xFF });
+		m_seperator.renderer()->setColor(sdl::BLACK);
 		m_seperator.draw();
+
+		m_currentNode.draw();
 	}
 
 private:
@@ -51,6 +54,8 @@ private:
 
 	sdl::RectDraw<> m_seperator;
 	sdl::LineDraw<>* m_currentLine;
+
+	Selected m_currentNode;
 
 
 	void _createTrafficLightOnMouse_(const SDL_Event& e)
@@ -61,17 +66,25 @@ private:
 		switch (e.key.keysym.sym)
 		{
 		case SDLK_c:
-			if (e.key.repeat == 0 && 
+			if (e.key.repeat == 0 &&
 				sdl::collision(sdl::Rect(0, 0, (WINDOW_SIZE.w * 3 >> 2) - LightPair::TOTAL_WIDTH, WINDOW_SIZE.h), pos))
-				pthis->m_roads.push(pthis->m_r, pos);
+			{
+				m_currentNode.select(&pthis->m_roads.push(pthis->m_r, pos));
+			}
 			break;
 
 		case SDLK_d:
 			if (e.key.repeat == 0)
 			{
-				auto select = pthis->m_roads.insideWhich<LightsPairsDB::iterator>(pos);
-				if (select != pthis->m_roads.end())
-					pthis->m_roads.erase(select);
+				auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&pos](const TrafficNode& n)
+					{
+						return sdl::collision(n.light.shape(), pos);
+					});
+
+				if (select != pthis->m_roads.rend())
+				{
+					pthis->m_roads.erase(select.base() - 1);
+				}
 			}
 			break;
 
@@ -92,9 +105,12 @@ private:
 		sdl::Point<int> pos;
 		SDL_GetMouseState(&pos.x, &pos.y);
 
-		auto* select = pthis->insideWhich(pos);
+		auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&pos](const sdl::RectDraw<>& r) 
+			{
+				return sdl::collision(r.shape(), pos);
+			});
 
-		if (select != nullptr)
+		if (select != pthis->m_nodes.rend())
 			m_currentLine = &pthis->m_lines.emplace_back(pthis->m_r)
 				.shape({ { select->shape().x + 2, select->shape().y + 2 }, pos });
 	}
@@ -112,9 +128,12 @@ private:
 
 		if (m_currentLine != nullptr)
 		{
-			auto* select = pthis->insideWhich(pos);
+			auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&pos](const sdl::RectDraw<>& r)
+				{
+					return sdl::collision(r.shape(), pos);
+				});
 
-			if (select != nullptr)
+			if (select != pthis->m_nodes.rend())
 			{
 				m_currentLine->shape({ m_currentLine->shape().pos1(), { select->shape().pos() + sdl::Point(2, 2) } });
 			}

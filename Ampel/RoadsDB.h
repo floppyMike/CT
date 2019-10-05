@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Includes.h"
-#include "Road.h"
+#include "RoadLights.h"
 
 
 struct TrafficNode
@@ -12,7 +12,8 @@ struct TrafficNode
 	}
 
 	LightPair light;
-	Road road;
+	std::vector<Node*> nodes;
+	std::vector<sdl::LineDraw<>*> lines;
 };
 
 
@@ -20,6 +21,7 @@ class LightsPairsDB
 {
 public:
 	using iterator = std::vector<TrafficNode>::iterator;
+	using reverse_iterator = std::vector<TrafficNode>::reverse_iterator;
 
 	LightsPairsDB() = default;
 
@@ -42,6 +44,14 @@ public:
 	{
 		return m_lights.begin();
 	}
+	auto rbegin() const noexcept
+	{
+		return m_lights.rbegin();
+	}
+	auto rbegin() noexcept
+	{
+		return m_lights.rbegin();
+	}
 
 	auto end() const noexcept
 	{
@@ -51,30 +61,13 @@ public:
 	{
 		return m_lights.end();
 	}
-
-	template<typename Ret>
-	Ret insideWhich(const sdl::Point<int>& p) noexcept
+	auto rend() const noexcept
 	{
-		auto iter = m_lights.end();
-		if (!m_lights.empty())
-			do
-			{
-				--iter;
-				if (sdl::collision(iter->light.shape(), p))
-					break;
-				else if (iter == m_lights.begin())
-				{
-					iter = m_lights.end();
-					break;
-				}
-			} while (true);
-
-		if constexpr (std::is_same_v<Ret, iterator>)
-			return iter;
-		else if constexpr (std::is_same_v<Ret, TrafficNode*>)
-			return iter == m_lights.end() ? nullptr : &*iter;
-		else
-			static_assert(false, "Incombatible type.");
+		return m_lights.rend();
+	}
+	auto rend() noexcept
+	{
+		return m_lights.rend();
 	}
 
 private:

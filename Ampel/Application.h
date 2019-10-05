@@ -3,6 +3,7 @@
 #include "Includes.h"
 #include "RoadsDB.h"
 #include "Node.h"
+#include "Selected.h"
 
 class App
 {
@@ -10,25 +11,6 @@ class App
 
 public:
 	App(sdl::Renderer* r);
-
-	sdl::RectDraw<>* insideWhich(const sdl::Point<int>& p) noexcept
-	{
-		auto iter = m_nodes.end();
-		if (!m_nodes.empty())
-			do
-			{
-				--iter;
-				if (sdl::collision(iter->shape(), p))
-					break;
-				else if (iter == m_nodes.begin())
-				{
-					iter = m_nodes.end();
-					break;
-				}
-			} while (true);
-
-		return iter == m_nodes.end() ? nullptr : &*iter;
-	}
 
 	void input(const SDL_Event& e)
 	{

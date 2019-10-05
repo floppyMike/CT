@@ -138,9 +138,9 @@
     <ClInclude Include="LightBody.h" />
     <ClInclude Include="LightBox.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Road.h" />
     <ClInclude Include="RoadLights.h" />
     <ClInclude Include="RoadsDB.h" />
+    <ClInclude Include="Selected.h" />
     <ClInclude Include="Setup.ipp" />
     <ClInclude Include="TrafficLight.h" />
     <ClInclude Include="VehicleLight.h" />
