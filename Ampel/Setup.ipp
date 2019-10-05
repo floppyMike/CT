@@ -16,7 +16,24 @@ public:
 		switch (e.type)
 		{
 		case SDL_KEYDOWN:
-			_createTrafficLightOnMouse_(e);
+			if (e.key.repeat == 0)
+				switch (e.key.keysym.sym)
+				{
+				case SDLK_c:
+					_createTrafficLightOnMouse_();
+					break;
+
+				case SDLK_d:
+					_deleteObject_();
+					break;
+
+				case SDLK_p:
+					_createNode_();
+					break;
+
+				default:
+					break;
+				}
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
@@ -60,38 +77,32 @@ private:
 	Selected m_selectedNode;
 
 
-	void _createTrafficLightOnMouse_(const SDL_Event& e)
+	void _createTrafficLightOnMouse_()
 	{
 		sdl::Point<int> pos;
 		SDL_GetMouseState(&pos.x, &pos.y);
 
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_c:
-			if (e.key.repeat == 0 &&
-				sdl::collision(sdl::Rect(0, 0, (WINDOW_SIZE.w * 3 >> 2) - LightPair::TOTAL_WIDTH, WINDOW_SIZE.h), pos))
-				&pthis->m_roads.emplace_back(pthis->m_r, pos);
-			break;
+		pthis->m_roads.emplace_back(pthis->m_r, pos);
+	}
 
-		case SDLK_d:
-			if (e.key.repeat == 0)
-			{
-				auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&pos](const TrafficNode& n)
-					{ return sdl::collision(n.light.shape(), pos); });
+	void _deleteObject_()
+	{
+		sdl::Point<int> pos;
+		SDL_GetMouseState(&pos.x, &pos.y);
 
-				if (select != pthis->m_roads.rend())
-					pthis->m_roads.erase(select.base() - 1);
-			}
-			break;
+		auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&pos](const TrafficNode& n)
+			{ return sdl::collision(n.light.shape(), pos); });
 
-		case SDLK_p:
-			if (e.key.repeat == 0)
-				pthis->m_nodes.emplace_back(pthis->m_r, pos);
-			break;
+		if (select != pthis->m_roads.rend())
+			pthis->m_roads.erase(select.base() - 1);
+	}
 
-		default:
-			break;
-		}
+	void _createNode_()
+	{
+		sdl::Point<int> pos;
+		SDL_GetMouseState(&pos.x, &pos.y);
+
+		pthis->m_nodes.emplace_back(pthis->m_r, pos);
 	}
 
 	void _spawnLine_(const SDL_Event& e)
