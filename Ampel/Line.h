@@ -18,7 +18,7 @@ public:
 
 	bool compareWith(const Node* const n) const noexcept
 	{
-		return n == m_nodes.first && n == m_nodes.second;
+		return n == m_nodes.first || n == m_nodes.second;
 	}
 
 	const auto& shape() const noexcept { return m_line.shape(); }

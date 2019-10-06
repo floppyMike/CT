@@ -9,7 +9,7 @@
 
 
 using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
-using NodeDB = std::vector<Node>;
+using NodeDB = std::vector<std::unique_ptr<Node>>;
 using LinkDB = std::vector<Link>;
 
 
@@ -56,7 +56,7 @@ private:
 	{
 		m_r->setColor(sdl::BLACK);
 		for (auto& i : m_nodes)
-			i.draw();
+			i->draw();
 	}
 
 	void _drawLines_()
