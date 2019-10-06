@@ -2,6 +2,7 @@
 
 #include "Includes.h"
 #include "RoadLights.h"
+#include "Line.h"
 
 
 struct TrafficNode
@@ -13,5 +14,5 @@ struct TrafficNode
 
 	LightPair light;
 	std::vector<Node*> nodes;
-	std::vector<sdl::LineDraw<>*> lines;
+	std::vector<Link*> lines;
 };

@@ -3,13 +3,14 @@
 #include "Includes.h"
 #include "RoadsDB.h"
 #include "Node.h"
+#include "Line.h"
 #include "Selected.h"
 #include "SequenceGenerator.h"
 
 
-using TrafficNodeDB = std::vector<TrafficNode>;
+using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
 using NodeDB = std::vector<Node>;
-using LinkDB = std::vector<sdl::LineDraw<>>;
+using LinkDB = std::vector<Link>;
 
 
 class App
@@ -48,11 +49,12 @@ private:
 	void _drawTrafficNodes_()
 	{
 		for (auto& i : m_roads)
-			i.light.draw();
+			i->light.draw();
 	}
 
 	void _drawNodes_()
 	{
+		m_r->setColor(sdl::BLACK);
 		for (auto& i : m_nodes)
 			i.draw();
 	}
