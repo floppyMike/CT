@@ -23,9 +23,9 @@ public:
 		m_selected = nullptr;
 	}
 
-	auto& get() noexcept
+	auto* get() noexcept
 	{
-		return *m_selected;
+		return m_selected;
 	}
 
 	bool isSelected() const noexcept

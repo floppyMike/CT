@@ -10,7 +10,6 @@
 
 using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
 using NodeDB = std::vector<std::unique_ptr<Node>>;
-using LinkDB = std::vector<Link>;
 
 
 class App
@@ -28,9 +27,8 @@ public:
 
 	void draw()
 	{
-		_drawTrafficNodes_();
+		_drawTrafficNodesWLines_();
 		_drawNodes_();
-		_drawLines_();
 
 		m_state->draw();
 
@@ -44,12 +42,15 @@ private:
 
 	TrafficNodeDB m_roads;
 	NodeDB m_nodes;
-	LinkDB m_lines;
 
-	void _drawTrafficNodes_()
+	void _drawTrafficNodesWLines_()
 	{
 		for (auto& i : m_roads)
+		{
 			i->light.draw();
+			for (const auto& i : i->lines)
+				i.draw();
+		}
 	}
 
 	void _drawNodes_()
@@ -57,12 +58,6 @@ private:
 		m_r->setColor(sdl::BLACK);
 		for (auto& i : m_nodes)
 			i->draw();
-	}
-
-	void _drawLines_()
-	{
-		for (const auto& i : m_lines)
-			i.draw();
 	}
 };
 

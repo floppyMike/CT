@@ -76,6 +76,33 @@ private:
 		return pos;
 	}
 
+	auto _nodeOnMouse_()
+	{
+		const auto mousePos = _mousePos_();
+
+		auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&mousePos](const auto& n)
+			{ return sdl::collision(n->shape(), mousePos); });
+
+		return select;
+	}
+
+	auto _trafficNodeOnMouse_()
+	{
+		const auto mousePos = _mousePos_();
+
+		auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&mousePos](const auto& n)
+			{ return sdl::collision(n->light.shape(), mousePos); });
+
+		return select;
+	}
+
+	void _eraseLinesToNode_(Node* ptr)
+	{
+		for (auto& i : pthis->m_roads)
+			i->lines.erase(std::remove_if(i->lines.begin(), i->lines.end(),
+				[&ptr](const auto& n) { return n.compareWith(ptr); }), i->lines.end());
+	}
+
 	void _createTrafficLightOnMouse_()
 	{
 		pthis->m_roads.emplace_back(std::make_unique<TrafficNode>(pthis->m_r, _mousePos_()));
@@ -85,27 +112,29 @@ private:
 	{
 		const auto mousePos = _mousePos_();
 
-		auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&mousePos](const auto& n)
-			{ return sdl::collision(n->light.shape(), mousePos); });
+		auto select = _trafficNodeOnMouse_();
 
 		if (select != pthis->m_roads.rend())
+		{
+			_eraseLinesToNode_(&(*select)->light.inNode());
+			_eraseLinesToNode_(&(*select)->light.outNode());
+
+			if (m_selectedNode.get() == select->get())
+				m_selectedNode.clear();
+
 			pthis->m_roads.erase(select.base() - 1);
+		}
 	}
 
 	void _deleteNode_()
 	{
 		const auto mousePos = _mousePos_();
 
-		auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&mousePos](const auto& n)
-			{ return sdl::collision(n->shape(), mousePos); });
+		auto select = _nodeOnMouse_();
 
 		if (select != pthis->m_nodes.rend())
 		{
-			auto* ptr = select->get();
-
-			pthis->m_lines.erase(std::remove_if(pthis->m_lines.begin(), pthis->m_lines.end(),
-				[&ptr](const auto& n) { return n.compareWith(ptr); }), pthis->m_lines.end());
-
+			_eraseLinesToNode_(select->get());
 			pthis->m_nodes.erase(select.base() - 1);
 		}
 	}
@@ -125,12 +154,11 @@ private:
 		const auto mousePos = _mousePos_();
 
 		Node* fromNode = nullptr;
-		if (sdl::collision(m_selectedNode.get().light.outNode().shape(), mousePos))
-			fromNode = &m_selectedNode.get().light.outNode();
+		if (sdl::collision(m_selectedNode.get()->light.outNode().shape(), mousePos))
+			fromNode = &m_selectedNode.get()->light.outNode();
 		else
 		{
-			auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&mousePos](const auto& r)
-				{ return sdl::collision(r->shape(), mousePos); });
+			const auto select = _nodeOnMouse_();
 
 			if (select != pthis->m_nodes.rend())
 				fromNode = select->get();
@@ -138,11 +166,10 @@ private:
 				return;
 		}
 
-		m_onMouseLine = &pthis->m_lines.emplace_back(pthis->m_r, 
+		m_onMouseLine = &m_selectedNode.get()->lines.emplace_back(pthis->m_r,
 			sdl::Line{ { fromNode->shape().x + 2, fromNode->shape().y + 2 }, mousePos }).fromNode(fromNode);
 
-		m_selectedNode.get().nodes.emplace_back(fromNode);
-		m_selectedNode.get().lines.emplace_back(m_onMouseLine);
+		m_selectedNode.get()->nodes.emplace_back(fromNode);
 	}
 
 	void _select_()
@@ -189,7 +216,7 @@ private:
 			if (toNode != nullptr)
 				m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { toNode->shape().pos() + sdl::Point(2, 2) } }).toNode(toNode);
 			else
-				pthis->m_lines.pop_back();
+				m_selectedNode.get()->lines.pop_back();
 
 			m_onMouseLine = nullptr;
 		}
