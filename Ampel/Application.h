@@ -27,9 +27,7 @@ public:
 
 	void draw()
 	{
-		_drawTrafficNodesWLines_();
 		_drawNodes_();
-
 		m_state->draw();
 
 		m_state.update();
@@ -42,16 +40,6 @@ private:
 
 	TrafficNodeDB m_roads;
 	NodeDB m_nodes;
-
-	void _drawTrafficNodesWLines_()
-	{
-		for (auto& i : m_roads)
-		{
-			i->light.draw();
-			for (const auto& i : i->lines)
-				i.draw();
-		}
-	}
 
 	void _drawNodes_()
 	{

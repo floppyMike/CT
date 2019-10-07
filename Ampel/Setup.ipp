@@ -62,6 +62,7 @@ public:
 	void draw() override
 	{
 		m_selectedNode.draw();
+		_drawTrafficNodesWLines_();
 	}
 
 private:
@@ -70,6 +71,20 @@ private:
 	Link* m_onMouseLine;
 	Selected m_selectedNode;
 
+
+	void _drawTrafficNodesWLines_()
+	{
+		for (auto& i : pthis->m_roads)
+		{
+			i->light.draw();
+
+			if (&*i == m_selectedNode.get())
+				pthis->m_r->setColor(sdl::BLUE);
+
+			for (const auto& i : i->lines)
+				i.draw();
+		}
+	}
 
 	auto _mousePos_()
 	{
