@@ -45,11 +45,13 @@ public:
 			break;
 
 		case SDL_MOUSEBUTTONUP:
-			_putLine_();
+			if (m_onMouseLine)
+				_putLine_();
 			break;
 
 		case SDL_MOUSEMOTION:
-			_translateLine_(e);
+			if (m_onMouseLine)
+				_translateLine_(e);
 			break;
 
 		default:
@@ -176,8 +178,7 @@ private:
 	{
 		const auto mousePos = _mousePos_();;
 
-		auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&mousePos](const auto& n)
-			{ return sdl::collision(n->light.shape(), mousePos); });
+		auto select = _trafficNodeOnMouse_();
 
 		if (select != pthis->m_roads.rend())
 			m_selectedNode.select(select->get());
@@ -185,40 +186,34 @@ private:
 
 	void _translateLine_(const SDL_Event& e)
 	{
-		if (m_onMouseLine != nullptr)
-			m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { e.motion.x, e.motion.y } });
+		m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { e.motion.x, e.motion.y } });
 	}
 
 	void _putLine_()
 	{
-		if (m_onMouseLine != nullptr)
+		const auto mousePos = _mousePos_();
+
+		Node* toNode = nullptr;
+
+		auto select = _nodeOnMouse_();
+
+		if (select != pthis->m_nodes.rend())
+			toNode = select->get();
+		else
 		{
-			const auto mousePos = _mousePos_();
+			auto select = _trafficNodeOnMouse_();
 
-			Node* toNode = nullptr;
-
-			auto select = std::find_if(pthis->m_nodes.rbegin(), pthis->m_nodes.rend(), [&mousePos](const auto& r)
-				{ return sdl::collision(r->shape(), mousePos); });
-
-			if (select != pthis->m_nodes.rend())
-				toNode = select->get();
+			if (select != pthis->m_roads.rend())
+				toNode = &(*select)->light.inNode();
 			else
-			{
-				auto select = std::find_if(pthis->m_roads.rbegin(), pthis->m_roads.rend(), [&mousePos](const auto& n)
-					{ return sdl::collision(n->light.inNode().shape(), mousePos); });
-
-				if (select != pthis->m_roads.rend())
-					toNode = &(*select)->light.inNode();
-				else
-					toNode = nullptr;
-			}
-
-			if (toNode != nullptr)
-				m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { toNode->shape().pos() + sdl::Point(2, 2) } }).toNode(toNode);
-			else
-				m_selectedNode.get()->lines.pop_back();
-
-			m_onMouseLine = nullptr;
+				toNode = nullptr;
 		}
+
+		if (toNode != nullptr)
+			m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { toNode->shape().pos() + sdl::Point(2, 2) } }).toNode(toNode);
+		else
+			m_selectedNode.get()->lines.pop_back();
+
+		m_onMouseLine = nullptr;
 	}
 };
