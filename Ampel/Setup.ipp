@@ -61,8 +61,8 @@ public:
 
 	void draw() override
 	{
-		m_selectedNode.draw();
 		_drawTrafficNodesWLines_();
+		m_selectedNode.draw();
 	}
 
 private:
@@ -78,10 +78,7 @@ private:
 		{
 			i->light.draw();
 
-			if (&*i == m_selectedNode.get())
-				pthis->m_r->setColor(sdl::BLUE);
-			else
-				pthis->m_r->setColor(sdl::BLACK);
+			pthis->m_r->setColor(sdl::BLACK);
 
 			for (const auto& i : i->lines)
 				i->draw();
@@ -127,7 +124,10 @@ private:
 
 	void _createTrafficLightOnMouse_()
 	{
-		pthis->m_roads.emplace_back(std::make_unique<TrafficNode>(pthis->m_r, _mousePos_()));
+		std::unique_ptr<TrafficNode> prev(m_selectedNode.select(std::make_unique<TrafficNode>(pthis->m_r, _mousePos_())));
+		
+		if (prev)
+			pthis->m_roads.emplace_back(std::move(prev));
 	}
 
 	void _deleteTrafficNode_()
@@ -202,7 +202,7 @@ private:
 		auto select = _trafficNodeOnMouse_();
 
 		if (select != pthis->m_roads.rend())
-			m_selectedNode.select(select->get());
+			*select = std::move(m_selectedNode.select(std::move(*select)));
 	}
 
 	void _translateLine_(const SDL_Event& e)

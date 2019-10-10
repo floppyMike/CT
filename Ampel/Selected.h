@@ -10,12 +10,15 @@ public:
 	{
 	}
 
-	void select(TrafficNode* ptr) noexcept
+	auto select(std::unique_ptr<TrafficNode>&& ptr) noexcept
 	{
-		m_selected = ptr;
+		auto old = std::move(m_selected);
+		m_selected = std::move(ptr);
 
-		auto shape = ptr->light.shape();
+		const auto shape = m_selected->light.shape();
 		m_box.shape({ shape.x - 5, shape.y - 5, shape.w + 10, shape.h + 10 });
+
+		return old;
 	}
 
 	void clear() noexcept
@@ -25,7 +28,7 @@ public:
 
 	auto* get() noexcept
 	{
-		return m_selected;
+		return m_selected.get();
 	}
 
 	bool isSelected() const noexcept
@@ -39,10 +42,17 @@ public:
 		{
 			m_box.renderer()->setColor(sdl::GREEN);
 			m_box.draw();
+
+			m_box.renderer()->setColor(sdl::BLACK);
+			m_selected->light.draw();
+
+			m_box.renderer()->setColor(sdl::BLUE);
+			for (auto& i : m_selected->lines)
+				i->draw();
 		}
 	}
 
 private:
-	TrafficNode* m_selected = nullptr;
+	std::unique_ptr<TrafficNode> m_selected = nullptr;
 	sdl::RectDraw<> m_box;
 };
