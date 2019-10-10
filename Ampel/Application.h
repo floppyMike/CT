@@ -6,11 +6,14 @@
 #include "Line.h"
 #include "Selected.h"
 #include "SequenceGenerator.h"
+#include "NodeDB.h"
+#include "TrafficNodeDB.h"
+#include "LinkDB.h"
 
 
-using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
-using NodeDB = std::vector<std::unique_ptr<Node>>;
-using LinkDB = std::vector<std::unique_ptr<Link>>;
+//using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
+//using NodeDB = std::vector<std::unique_ptr<Node>>;
+//using LinkDB = std::vector<std::unique_ptr<Link>>;
 
 
 class App
@@ -39,9 +42,9 @@ private:
 
 	sdl::StateManager<sdl::IState> m_state;
 
-	TrafficNodeDB m_roads;
-	NodeDB m_nodes;
-	LinkDB m_links;
+	TrafficNodeDB<TrafficNodeOnMouse> m_roads;
+	NodeDB<NodesOnMouse> m_nodes;
+	LinkDB<LinkRemover> m_links;
 
 	void _drawNodes_()
 	{

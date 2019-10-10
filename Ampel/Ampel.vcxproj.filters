@@ -53,9 +53,6 @@
     <ClInclude Include="Setup.ipp">
       <Filter>Header Files\Setup</Filter>
     </ClInclude>
-    <ClInclude Include="RoadLights.h">
-      <Filter>Header Files\Mapping</Filter>
-    </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
@@ -73,6 +70,24 @@
     </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>Header Files\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficConnector.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="RoadLights.h">
+      <Filter>Header Files\TrafficLight</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeDB.h">
+      <Filter>Header Files\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficNodeDB.h">
+      <Filter>Header Files\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkDB.h">
+      <Filter>Header Files\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePlotter.h">
+      <Filter>Header Files\Setup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

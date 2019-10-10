@@ -1,18 +1,14 @@
 #pragma once
 
 #include "Includes.h"
-#include "RoadLights.h"
+#include "TrafficConnector.h"
 #include "Line.h"
 
 
-struct TrafficNode
+struct TrafficNode : TrafficConnector
 {
-	TrafficNode(sdl::Renderer* r, const sdl::Point<int>& pos)
-		: light(r, pos)
-	{
-	}
+	using TrafficConnector::TrafficConnector;
 
-	LightPair light;
-	std::vector<Node*> nodes;
+	std::vector<DNode*> nodes;
 	std::vector<Link*> lines;
 };

@@ -15,7 +15,7 @@ public:
 		auto old = std::move(m_selected);
 		m_selected = std::move(ptr);
 
-		const auto shape = m_selected->light.shape();
+		const auto shape = m_selected->shape();
 		m_box.shape({ shape.x - 5, shape.y - 5, shape.w + 10, shape.h + 10 });
 
 		return old;
@@ -33,7 +33,12 @@ public:
 
 	bool isSelected() const noexcept
 	{
-		return m_selected != nullptr;
+		return m_selected.operator bool();
+	}
+
+	bool isSelected(TrafficNode* ptr) const noexcept
+	{
+		return m_selected.get() == ptr;
 	}
 
 	void draw()
@@ -44,7 +49,7 @@ public:
 			m_box.draw();
 
 			m_box.renderer()->setColor(sdl::BLACK);
-			m_selected->light.draw();
+			m_selected->draw();
 
 			m_box.renderer()->setColor(sdl::BLUE);
 			for (auto& i : m_selected->lines)

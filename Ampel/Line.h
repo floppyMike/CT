@@ -13,13 +13,13 @@ public:
 		m_line.shape(l);
 	}
 
-	auto& fromNode(Node* const ptr) noexcept { m_nodes.first = ptr; return *this; }
+	auto& fromNode(DNode* const ptr) noexcept { m_nodes.first = ptr; return *this; }
 	auto* fromNode() noexcept { return m_nodes.first; }
 
-	auto& toNode(Node* const ptr) noexcept { m_nodes.second = ptr; return *this; }
+	auto& toNode(DNode* const ptr) noexcept { m_nodes.second = ptr; return *this; }
 	auto& toNode() noexcept { return m_nodes.second; }
 
-	bool compareWith(const Node* const n) const noexcept
+	bool compareWith(const DNode* const n) const noexcept
 	{
 		return n == m_nodes.first || n == m_nodes.second;
 	}
@@ -33,6 +33,6 @@ public:
 	}
 
 private:
-	std::pair<Node*, Node*> m_nodes;
+	std::pair<DNode*, DNode*> m_nodes;
 	sdl::LineDraw<> m_line;
 };

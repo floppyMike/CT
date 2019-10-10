@@ -13,6 +13,13 @@
 using namespace ctl;
 using namespace std::chrono_literals;
 
+auto mousePosition()
+{
+	sdl::Point<int> pos;
+	SDL_GetMouseState(&pos.x, &pos.y);
+	return pos;
+}
+
 constexpr sdl::Dim<int> WINDOW_SIZE = { 1280, 720 };
 
 enum Events

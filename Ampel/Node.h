@@ -2,7 +2,9 @@
 
 #include "Includes.h"
 
-class Node
+
+template<template<typename> class... Func>
+class Node : public Func<Node<Func...>>...
 {
 public:
 	static constexpr sdl::Dim<int> DIM = sdl::Dim(5, 5);
@@ -28,25 +30,40 @@ public:
 		m_rect.drawFilled();
 	}
 
-protected:
+private:
 	sdl::RectDraw<> m_rect;
 };
 
 
-class NodeStart : Node
+template<typename T>
+class NodeOnMouse : public crtp<T, NodeOnMouse>
 {
 public:
-	using Node::Node;
-
-	void draw()
+	bool isNodeOnMouse() const
 	{
-		m_rect.renderer()->setColor(sdl::RED);
-		m_rect.drawFilled();
+		return sdl::collision(this->_().shape(), mousePosition());
 	}
-
-	using Node::shape;
-	using Node::translate;
-
-private:
-	std::vector<Node*> m_path;
 };
+
+
+using DNode = Node<NodeOnMouse>;
+
+
+
+//class NodeStart : Node
+//{
+//public:
+//	using Node::Node;
+//
+//	void draw()
+//	{
+//		m_rect.renderer()->setColor(sdl::RED);
+//		m_rect.drawFilled();
+//	}
+//
+//	using Node::shape;
+//	using Node::translate;
+//
+//private:
+//	std::vector<Node*> m_path;
+//};
