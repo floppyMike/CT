@@ -14,5 +14,5 @@ struct TrafficNode
 
 	LightPair light;
 	std::vector<Node*> nodes;
-	std::vector<Link> lines;
+	std::vector<Link*> lines;
 };

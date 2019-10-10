@@ -80,9 +80,11 @@ private:
 
 			if (&*i == m_selectedNode.get())
 				pthis->m_r->setColor(sdl::BLUE);
+			else
+				pthis->m_r->setColor(sdl::BLACK);
 
 			for (const auto& i : i->lines)
-				i.draw();
+				i->draw();
 		}
 	}
 
@@ -115,9 +117,12 @@ private:
 
 	void _eraseLinesToNode_(Node* ptr)
 	{
-		for (auto& i : pthis->m_roads)
-			i->lines.erase(std::remove_if(i->lines.begin(), i->lines.end(),
-				[&ptr](const auto& n) { return n.compareWith(ptr); }), i->lines.end());
+		//for (auto& i : pthis->m_roads)
+		//	i->lines.erase(std::remove_if(i->lines.begin(), i->lines.end(),
+		//		[&ptr](const auto& n) { return n->compareWith(ptr); }), i->lines.end());
+
+		pthis->m_links.erase(std::remove_if(pthis->m_links.begin(), pthis->m_links.end(),
+			[&ptr](const auto& n) { return n->compareWith(ptr); }), pthis->m_links.end());
 	}
 
 	void _createTrafficLightOnMouse_()
@@ -183,10 +188,11 @@ private:
 				return;
 		}
 
-		m_onMouseLine = &m_selectedNode.get()->lines.emplace_back(pthis->m_r,
-			sdl::Line{ { fromNode->shape().x + 2, fromNode->shape().y + 2 }, mousePos }).fromNode(fromNode);
+		m_onMouseLine = &pthis->m_links.emplace_back(std::make_unique<Link>(pthis->m_r,
+			sdl::Line{ { fromNode->shape().x + 2, fromNode->shape().y + 2 }, mousePos }))->fromNode(fromNode);
 
 		m_selectedNode.get()->nodes.emplace_back(fromNode);
+		m_selectedNode.get()->lines.emplace_back(m_onMouseLine);
 	}
 
 	void _select_()
@@ -225,9 +231,26 @@ private:
 		}
 
 		if (toNode != nullptr)
-			m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { toNode->shape().pos() + sdl::Point(2, 2) } }).toNode(toNode);
+		{
+			auto select = std::find_if(pthis->m_links.begin(), pthis->m_links.end() - 1, 
+				[this, &toNode](const auto& l) { return l->compareWith(m_selectedNode.get()->nodes.back()) && l->compareWith(toNode); });
+
+			if (select != pthis->m_links.end() - 1)
+			{
+				pthis->m_links.pop_back();
+				m_selectedNode.get()->lines.back() = select->get();
+				m_onMouseLine = select->get();
+
+
+			}
+			else
+				m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { toNode->shape().pos() + sdl::Point(2, 2) } }).toNode(toNode);
+		}
 		else
+		{
+			pthis->m_links.pop_back();
 			m_selectedNode.get()->lines.pop_back();
+		}
 
 		m_onMouseLine = nullptr;
 	}

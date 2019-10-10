@@ -18,13 +18,6 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Enum Name="Light::Color" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Light.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAEIAAgABAAAAAACBAAAAAAgABAA=</HashCode>
       <FileName>Light.h</FileName>
@@ -43,7 +36,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="App::SSetup">
+      <Class Name="App::SSetup" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Application.h</NewMemberFileName>
         </TypeIdentifier>
@@ -55,18 +48,8 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAQAAAAEAAABAAAAAAIAAAAAQAAAABAAAAAACAAkAAA=</HashCode>
+      <HashCode>AAQAAAAEAAABAAAAAAIAAAAAQAAAABAAAAAACAAhAAA=</HashCode>
       <FileName>Application.h</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="m_roads" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="LightsPairsDB">
-    <Position X="16.75" Y="7.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAAAAACAIAAAQCAAAAAAIAAAIAAAEAAA=</HashCode>
-      <FileName>RoadsDB.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Node">
@@ -90,9 +73,9 @@
       <FileName>RoadLights.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="m_in" />
-      <Field Name="m_out" />
       <Field Name="m_ped" />
+      <Field Name="m_out" />
+      <Field Name="m_in" />
     </ShowAsAssociation>
   </Class>
   <Struct Name="TrafficNode" Collapsed="true">

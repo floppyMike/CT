@@ -10,6 +10,7 @@
 
 using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
 using NodeDB = std::vector<std::unique_ptr<Node>>;
+using LinkDB = std::vector<std::unique_ptr<Link>>;
 
 
 class App
@@ -40,6 +41,7 @@ private:
 
 	TrafficNodeDB m_roads;
 	NodeDB m_nodes;
+	LinkDB m_links;
 
 	void _drawNodes_()
 	{

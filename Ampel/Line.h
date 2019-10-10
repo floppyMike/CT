@@ -13,8 +13,11 @@ public:
 		m_line.shape(l);
 	}
 
-	auto& fromNode(Node* const ptr) { m_nodes.first = ptr; return *this; }
-	auto& toNode(Node* const ptr) { m_nodes.second = ptr; return *this; }
+	auto& fromNode(Node* const ptr) noexcept { m_nodes.first = ptr; return *this; }
+	auto* fromNode() noexcept { return m_nodes.first; }
+
+	auto& toNode(Node* const ptr) noexcept { m_nodes.second = ptr; return *this; }
+	auto& toNode() noexcept { return m_nodes.second; }
 
 	bool compareWith(const Node* const n) const noexcept
 	{
