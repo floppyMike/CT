@@ -4,9 +4,9 @@
 #include "Line.h"
 
 template<template<typename> class... Func>
-class LinkDB : std::vector<std::unique_ptr<Link>>, public Func<LinkDB<Func...>>...
+class LinkDB : std::vector<std::unique_ptr<DLink>>, public Func<LinkDB<Func...>>...
 {
-	using baseV = std::vector<std::unique_ptr<Link>>;
+	using baseV = std::vector<std::unique_ptr<DLink>>;
 
 public:
 	LinkDB() = default;

@@ -76,7 +76,7 @@ public:
 private:
 	App* pthis;
 
-	Link* m_onMouseLine;
+	DLink* m_onMouseLine;
 	Selected m_selectedNode;
 
 
@@ -145,7 +145,7 @@ private:
 				return;
 		}
 
-		m_onMouseLine = &pthis->m_links.emplace_back(std::make_unique<Link>(pthis->m_r,
+		m_onMouseLine = &pthis->m_links.emplace_back(std::make_unique<DLink>(pthis->m_r,
 			sdl::Line{ { fromNode->shape().x + 2, fromNode->shape().y + 2 }, mousePos }))->fromNode(fromNode);
 
 		m_selectedNode.get()->nodes.emplace_back(fromNode);

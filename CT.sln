@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ampel", "Ampel\Ampel.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomLibrary", "..\CustomLibrary\CustomLibrary\CustomLibrary.vcxitems", "{36375312-801A-4E9A-AB87-7F6012AEB695}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrashCourseC++", "CrashCourseC++\CrashCourseC++.vcxproj", "{9196A82A-F5B0-473C-B260-D7460E8ECB80}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\CustomLibrary\CustomLibrary\CustomLibrary.vcxitems*{1845d5b3-92ac-40c6-b0f0-c75a2acf237e}*SharedItemsImports = 4
@@ -27,6 +29,14 @@ Global
 		{1845D5B3-92AC-40C6-B0F0-C75A2ACF237E}.Release|x64.Build.0 = Release|x64
 		{1845D5B3-92AC-40C6-B0F0-C75A2ACF237E}.Release|x86.ActiveCfg = Release|Win32
 		{1845D5B3-92AC-40C6-B0F0-C75A2ACF237E}.Release|x86.Build.0 = Release|Win32
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Debug|x64.ActiveCfg = Debug|x64
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Debug|x64.Build.0 = Debug|x64
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Debug|x86.ActiveCfg = Debug|Win32
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Debug|x86.Build.0 = Debug|Win32
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Release|x64.ActiveCfg = Release|x64
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Release|x64.Build.0 = Release|x64
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Release|x86.ActiveCfg = Release|Win32
+		{9196A82A-F5B0-473C-B260-D7460E8ECB80}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

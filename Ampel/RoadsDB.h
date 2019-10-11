@@ -10,5 +10,5 @@ struct TrafficNode : TrafficConnector
 	using TrafficConnector::TrafficConnector;
 
 	std::vector<DNode*> nodes;
-	std::vector<Link*> lines;
+	std::vector<DLink*> lines;
 };
