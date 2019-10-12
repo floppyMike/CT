@@ -1,4 +1,5 @@
 #include "Functions.h"
+#include "Structures.h"
 #include <limits>
 #include <array>
 
@@ -251,10 +252,22 @@ int main() //Hier fängt das von dir geschriebene programm an.
 
 		recursion(5); //Recursiver Funktion aufrufen
 
-		auto lambda1 = []() 
+		auto lambda1 = [] //Variable für ein Lambda Funktion der hier definiert ist
 		{
-			
+			std::cout << "ABC\n";
 		};
+		lambda1(); //Variable wie eine Funktion ausführen
+
+		auto lambda2 = [x] //Variable x wird rein copiert und wird bei jeder anwendung der lambda benutzt.
+		{
+			std::cout << "x == " << x << '\n';
+		};
+		lambda2();
+
+		[] //Lambda kann auf Variablenloss sein
+		{
+			std::cout << "Nameless\n";
+		}();
 	}
 
 
@@ -273,10 +286,22 @@ int main() //Hier fängt das von dir geschriebene programm an.
 		arr1.fill(10); //Alle Variablen im Array halten den Wert 10
 		std::cout << arr1[2] << '\n';
 
-		unsigned int x = 111;
-		int y = 10;
+		const auto a = static_cast<double>(3); //"static_cast" convertiert einen Wert zu einen anderen Typ
+	}
 
-		y = x;
+
+	//--- User Typen
+	{
+		Struct1 s1; //User gemachte Typ wird declariert. Gehe zu "Structures.h".
+		s1.x = 10; //x Variable vom Struct1 bekommt den Wert 10.
+		s1.y = 20; //y Variable vom Struct1 bekommt den Wert 20.
+
+		std::cout << "Struct1 has x = " << s1.x << " and y = " << s1.y << '\n';
+
+		Struct2 s2; //Variablen müssen nicht geändert werden, weil sie schon einen Wert bekommen haben
+		std::cout << "Struct2 has x = " << s2.x << " and y = " << s2.y << '\n';
+
+
 	}
 
 
