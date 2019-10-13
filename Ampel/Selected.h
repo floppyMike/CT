@@ -10,7 +10,7 @@ public:
 	{
 	}
 
-	auto select(std::unique_ptr<TrafficNode>&& ptr) noexcept
+	auto select(std::unique_ptr<DTrafficNode>&& ptr) noexcept
 	{
 		auto old = std::move(m_selected);
 		m_selected = std::move(ptr);
@@ -28,6 +28,7 @@ public:
 
 	auto* get() noexcept
 	{
+		assert(m_selected && "No selected TrafficNode.");
 		return m_selected.get();
 	}
 
@@ -36,9 +37,14 @@ public:
 		return m_selected.operator bool();
 	}
 
-	bool isSelected(TrafficNode* ptr) const noexcept
+	bool isSelected(DTrafficNode* ptr) const noexcept
 	{
 		return m_selected.get() == ptr;
+	}
+
+	void eraseLinks()
+	{
+
 	}
 
 	void draw()
@@ -58,6 +64,6 @@ public:
 	}
 
 private:
-	std::unique_ptr<TrafficNode> m_selected = nullptr;
+	std::unique_ptr<DTrafficNode> m_selected = nullptr;
 	sdl::RectDraw<> m_box;
 };

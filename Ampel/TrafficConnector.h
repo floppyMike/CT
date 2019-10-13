@@ -10,6 +10,7 @@ class TrafficConnector : RoadLights
 public:
 	TrafficConnector(sdl::Renderer* r, const sdl::Point<int>& pos)
 		: RoadLights(r, pos)
+		, m_r(r)
 		, m_out(r, { pos.x + (WIDTH >> 1), pos.y + m_veh.shape().h + IN_OUT_DIS })
 		, m_in(r, { pos.x + (WIDTH >> 1) + WIDTH, pos.y + m_veh.shape().h + IN_OUT_DIS })
 	{
@@ -36,13 +37,18 @@ public:
 	void draw()
 	{
 		RoadLights::draw();
+
+		m_r->setColor(sdl::RED);
 		m_out.draw();
+		m_r->setColor(sdl::BLACK);
 		m_in.draw();
 	}
 
 	using RoadLights::pos;
 
 private:
+	sdl::Renderer* m_r;
+
 	DNode m_out;
 	DNode m_in;
 };

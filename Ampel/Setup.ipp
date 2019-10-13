@@ -23,7 +23,7 @@ public:
 
 				case SDLK_d:
 					_deleteTrafficNode_();
-					_deleteNode_();
+					//_deleteNode_();
 					break;
 
 				case SDLK_p:
@@ -85,40 +85,43 @@ private:
 
 	void _createTrafficLightOnMouse_()
 	{
-		auto prev = m_selectedNode.select(std::make_unique<TrafficNode>(pthis->m_r, mousePosition()));
+		auto prev = m_selectedNode.select(std::make_unique<DTrafficNode>(pthis->m_r, mousePosition()));
 		
 		if (prev)
 			pthis->m_roads.emplace_back(std::move(prev));
 	}
 
+	void _stripLinks_(DTrafficNode* node)
+	{
+		pthis->m_links.eraseLinesToNode(&node->inNode());
+		pthis->m_links.eraseLinesToNode(&node->outNode());
+	}
+
 	void _deleteTrafficNode_()
 	{
-		auto select = pthis->m_roads.trafficNodeOnMouse();
-
-		if (select != pthis->m_roads.rend())
+		if (m_selectedNode.isSelected() && m_selectedNode.get()->isTraffNodeOnMouse())
 		{
-			pthis->m_links.eraseLinesToNode(&(*select)->inNode());
-			pthis->m_links.eraseLinesToNode(&(*select)->outNode());
+			_stripLinks_(m_selectedNode.get());
+			m_selectedNode.clear();
+		}
 
-			if (m_selectedNode.isSelected(select->get()))
-				m_selectedNode.clear();
-
-			pthis->m_roads.erase(select.base() - 1);
+		else if (auto select = pthis->m_roads.trafficNodeOnMouse(); select != pthis->m_roads.rend())
+		{
+			_stripLinks_(select->get());
+			ctl::fastRemove(pthis->m_roads, select.base() - 1);
 		}
 	}
 
-	void _deleteNode_()
-	{
-		const auto mousePos = mousePosition();
+	//void _deleteNode_()
+	//{
+	//	if (auto select = pthis->m_nodes.nodeOnMouse(); select != pthis->m_nodes.rend())
+	//	{
+	//		pthis->m_roads.removeNode(select->get());
 
-		auto select = pthis->m_nodes.nodeOnMouse();
-
-		if (select != pthis->m_nodes.rend())
-		{
-			pthis->m_links.eraseLinesToNode(select->get());
-			pthis->m_nodes.erase(select.base() - 1);
-		}
-	}
+	//		pthis->m_links.eraseLinesToNode(select->get());
+	//		pthis->m_nodes.erase(select.base() - 1);
+	//	}
+	//}
 
 	void _createNode_()
 	{
@@ -137,14 +140,10 @@ private:
 		if (m_selectedNode.get()->outNode().isNodeOnMouse())
 			fromNode = &m_selectedNode.get()->outNode();
 		else
-		{
-			const auto select = pthis->m_nodes.nodeOnMouse();
-
-			if (select != pthis->m_nodes.rend())
+			if (const auto select = pthis->m_nodes.nodeOnMouse(); select != pthis->m_nodes.rend())
 				fromNode = select->get();
 			else
 				return;
-		}
 
 		m_linePlot.spawn(fromNode);
 	}
@@ -152,7 +151,8 @@ private:
 	void _select_()
 	{
 		if (auto select = pthis->m_roads.trafficNodeOnMouse(); select != pthis->m_roads.rend())
-			*select = std::move(m_selectedNode.select(std::move(*select)));
+			if (*select = std::move(m_selectedNode.select(std::move(*select))); !*select)
+				ctl::fastRemove(pthis->m_roads, select.base() - 1);
 	}
 
 	void _translateLine_(const SDL_Event& e)

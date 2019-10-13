@@ -5,9 +5,9 @@
 
 
 template<template<typename> class... Func>
-class TrafficNodeDB : std::vector<std::unique_ptr<TrafficNode>>, public Func<TrafficNodeDB<Func...>>...
+class TrafficNodeDB : std::vector<std::unique_ptr<DTrafficNode>>, public Func<TrafficNodeDB<Func...>>...
 {
-	using baseV = std::vector<std::unique_ptr<TrafficNode>>;
+	using baseV = std::vector<std::unique_ptr<DTrafficNode>>;
 
 public:
 	TrafficNodeDB() = default;
@@ -34,5 +34,17 @@ public:
 			{ return sdl::collision(n->shape(), mousePos); });
 
 		return select;
+	}
+};
+
+
+template<typename T>
+class TrafficNodeDeleter : public crtp<T, TrafficNodeDeleter>
+{
+public:
+	void removeNode(DNode* node)
+	{
+		for (auto& i : this->_())
+			i->nodes.erase(std::remove(i->nodes.begin(), i->nodes.end(), node), i->nodes.end());
 	}
 };

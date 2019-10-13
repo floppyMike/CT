@@ -41,7 +41,7 @@ private:
 
 	sdl::StateManager<sdl::IState> m_state;
 
-	TrafficNodeDB<TrafficNodeOnMouse> m_roads;
+	TrafficNodeDB<TrafficNodeOnMouse, TrafficNodeDeleter> m_roads;
 	NodeDB<NodesOnMouse> m_nodes;
 	LinkDB<LinkRemover, LinkFinder> m_links;
 
