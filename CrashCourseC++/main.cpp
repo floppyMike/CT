@@ -17,10 +17,6 @@ Hier wird nicht kompaliert.
 
 int main() //Hier fängt das von dir geschriebene programm an.
 {
-	//----------------------------------------------
-	//Basics
-	//----------------------------------------------
-
 	{ //Alles drinnen ist unsichtbar draußen.
 		int x = 0; //Alle Befehle müssen ein ";" am Ende haben.
 	}

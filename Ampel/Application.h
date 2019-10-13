@@ -2,13 +2,12 @@
 
 #include "Includes.h"
 #include "RoadsDB.h"
-#include "Node.h"
-#include "Line.h"
 #include "Selected.h"
 #include "SequenceGenerator.h"
 #include "NodeDB.h"
 #include "TrafficNodeDB.h"
 #include "LinkDB.h"
+#include "LinePlotter.h"
 
 
 //using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
@@ -44,7 +43,7 @@ private:
 
 	TrafficNodeDB<TrafficNodeOnMouse> m_roads;
 	NodeDB<NodesOnMouse> m_nodes;
-	LinkDB<LinkRemover> m_links;
+	LinkDB<LinkRemover, LinkFinder> m_links;
 
 	void _drawNodes_()
 	{

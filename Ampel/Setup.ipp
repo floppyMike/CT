@@ -5,6 +5,7 @@ public:
 	SSetup(App* p)
 		: pthis(p)
 		, m_selectedNode(p->m_r)
+		, m_linePlot(p->m_r)
 	{
 	}
 
@@ -45,12 +46,12 @@ public:
 			break;
 
 		case SDL_MOUSEBUTTONUP:
-			if (m_onMouseLine)
+			if (m_linePlot.isMade())
 				_putLine_();
 			break;
 
 		case SDL_MOUSEMOTION:
-			if (m_onMouseLine)
+			if (m_linePlot.isMade())
 				_translateLine_(e);
 			break;
 
@@ -61,6 +62,8 @@ public:
 
 	void draw() override
 	{
+		m_linePlot.draw();
+
 		for (auto& i : pthis->m_roads)
 		{
 			i->draw();
@@ -76,8 +79,8 @@ public:
 private:
 	App* pthis;
 
-	DLink* m_onMouseLine;
 	Selected m_selectedNode;
+	LinePlotter m_linePlot;
 
 
 	void _createTrafficLightOnMouse_()
@@ -129,8 +132,6 @@ private:
 
 	void _spawnLine_()
 	{
-		const auto mousePos = mousePosition();
-
 		DNode* fromNode = nullptr;
 
 		if (m_selectedNode.get()->outNode().isNodeOnMouse())
@@ -145,66 +146,46 @@ private:
 				return;
 		}
 
-		m_onMouseLine = &pthis->m_links.emplace_back(std::make_unique<DLink>(pthis->m_r,
-			sdl::Line{ { fromNode->shape().x + 2, fromNode->shape().y + 2 }, mousePos }))->fromNode(fromNode);
-
-		m_selectedNode.get()->nodes.emplace_back(fromNode);
-		m_selectedNode.get()->lines.emplace_back(m_onMouseLine);
+		m_linePlot.spawn(fromNode);
 	}
 
 	void _select_()
 	{
-		auto select = pthis->m_roads.trafficNodeOnMouse();
-
-		if (select != pthis->m_roads.rend())
+		if (auto select = pthis->m_roads.trafficNodeOnMouse(); select != pthis->m_roads.rend())
 			*select = std::move(m_selectedNode.select(std::move(*select)));
 	}
 
 	void _translateLine_(const SDL_Event& e)
 	{
-		m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { e.motion.x, e.motion.y } });
+		m_linePlot.translateEnd({ e.motion.x, e.motion.y });
+	}
+
+	DNode* _findNode_()
+	{
+		if (auto select = pthis->m_nodes.nodeOnMouse(); select != pthis->m_nodes.rend())
+			return select->get();
+
+		if (auto select = pthis->m_roads.trafficNodeOnMouse(); select != pthis->m_roads.rend())
+			return &(*select)->inNode();
+
+		return nullptr;
 	}
 
 	void _putLine_()
 	{
-		const auto mousePos = mousePosition();
-
-		DNode* toNode = nullptr;
-
-		auto select = pthis->m_nodes.nodeOnMouse();
-
-		if (select != pthis->m_nodes.rend())
-			toNode = select->get();
-		else
+		if (DNode* toNode = _findNode_(); toNode)
 		{
-			auto select = pthis->m_roads.trafficNodeOnMouse();
-
-			if (select != pthis->m_roads.rend())
-				toNode = &(*select)->inNode();
-			else
-				toNode = nullptr;
-		}
-
-		if (toNode != nullptr)
-		{
-			auto select = std::find_if(pthis->m_links.begin(), pthis->m_links.end() - 1, 
-				[this, &toNode](const auto& l) { return l->compareWith(m_selectedNode.get()->nodes.back()) && l->compareWith(toNode); });
-
-			if (select != pthis->m_links.end() - 1)
+			if (auto select = pthis->m_links.findSameLink(m_linePlot.get()->fromNode(), toNode); select != pthis->m_links.end())
 			{
-				pthis->m_links.pop_back();
-				m_selectedNode.get()->lines.back() = select->get();
-				m_onMouseLine = select->get();
+				m_selectedNode.get()->lines.emplace_back(select->get());
+				m_linePlot.clear();
 			}
 			else
-				m_onMouseLine->shape({ m_onMouseLine->shape().pos1(), { toNode->shape().pos() + sdl::Point(2, 2) } }).toNode(toNode);
+				m_selectedNode.get()->lines.emplace_back(pthis->m_links.emplace_back(m_linePlot.place(toNode)).get());
+
+			m_selectedNode.get()->nodes.emplace_back(toNode);
 		}
 		else
-		{
-			pthis->m_links.pop_back();
-			m_selectedNode.get()->lines.pop_back();
-		}
-
-		m_onMouseLine = nullptr;
+			m_linePlot.clear();
 	}
 };

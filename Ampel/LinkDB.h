@@ -32,3 +32,15 @@ public:
 			[&ptr](const auto& n) { return n->compareWith(ptr); }), this->_().end());
 	}
 };
+
+
+template<typename T>
+class LinkFinder : public crtp<T, LinkFinder>
+{
+public:
+	auto findSameLink(DNode* from, DNode* to)
+	{
+		return std::find_if(this->_().begin(), this->_().end(),
+			[&from, &to](const auto& l) { return l->compareWith(from) && l->compareWith(to); });
+	}
+};
