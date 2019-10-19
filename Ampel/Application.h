@@ -10,18 +10,14 @@
 #include "LinePlotter.h"
 
 
-//using TrafficNodeDB = std::vector<std::unique_ptr<TrafficNode>>;
-//using NodeDB = std::vector<std::unique_ptr<Node>>;
-//using LinkDB = std::vector<std::unique_ptr<Link>>;
-
-
 class App
 {
 	class SSetup;
 	class SSimulation;
+	class SCompile;
 
 public:
-	App(sdl::Renderer* r);
+	App(sdl::Renderer* r, bool* doRend);
 
 	void input(const SDL_Event& e)
 	{
@@ -45,6 +41,8 @@ private:
 	NodeDB<NodesOnMouse> m_nodes;
 	LinkDB<LinkRemover, LinkFinder> m_links;
 
+	bool* m_doRender;
+
 	void _drawNodes_()
 	{
 		m_r->setColor(sdl::BLACK);
@@ -60,10 +58,12 @@ private:
 
 
 #include "Setup.ipp"
+#include "Compile.ipp"
 #include "Simulation.ipp"
 
-App::App(sdl::Renderer* r)
+App::App(sdl::Renderer* r, bool* doRend)
 	: m_r(r)
+	, m_doRender(doRend)
 {
 	m_state.set<SSetup>(this);
 	m_state.update();

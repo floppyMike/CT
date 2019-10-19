@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Compile.ipp" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightBox.h" />

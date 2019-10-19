@@ -2,10 +2,10 @@
 
 #include "Includes.h"
 
-class Sequence
+class SequenceGen
 {
 public:
-	Sequence()
+	SequenceGen()
 	{
 
 	}

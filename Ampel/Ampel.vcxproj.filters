@@ -28,6 +28,9 @@
     <Filter Include="Header Files\DB">
       <UniqueIdentifier>{ae137734-35b4-4bd8-a73a-16c3555d59f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Compile">
+      <UniqueIdentifier>{fd627a25-858e-44f3-972e-a41d3207172c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="RoadsDB.h">
       <Filter>Header Files\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="Compile.ipp">
+      <Filter>Header Files\Compile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

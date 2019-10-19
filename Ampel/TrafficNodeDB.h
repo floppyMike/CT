@@ -19,6 +19,7 @@ public:
 
 	using baseV::emplace_back;
 	using baseV::erase;
+	using baseV::size;
 };
 
 

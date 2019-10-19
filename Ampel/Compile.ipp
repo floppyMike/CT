@@ -1,9 +1,8 @@
 
-
-class App::SSimulation : public sdl::IState
+class App::SCompile : public sdl::IState
 {
 public:
-	SSimulation(App* app)
+	SCompile(App* app)
 		: pthis(app)
 	{
 		pthis->m_doRender = false;

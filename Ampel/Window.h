@@ -14,7 +14,7 @@ public:
 	Window()
 		: m_win("Ampel", WINDOW_SIZE)
 		, m_rend(&m_win)
-		, m_app(&m_rend)
+		, m_app(&m_rend, &m_doRender)
 	{
 	}
 
@@ -31,7 +31,7 @@ public:
 
 	void render()
 	{
-		if (true)
+		if (m_doRender)
 		{
 			m_rend.setColor({ 0xFF, 0xFF, 0xFF, 0xFF });
 			m_rend.fill();
@@ -39,7 +39,7 @@ public:
 			m_app.draw();
 
 			m_rend.render();
-			m_doRender = false;
+			//m_doRender = false;
 		}
 	}
 
