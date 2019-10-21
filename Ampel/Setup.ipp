@@ -31,7 +31,8 @@ public:
 					break;
 
 				case SDLK_s:
-					_startSim_();
+					if (!m_linePlot.isMade())
+						_startSim_();
 					break;
 
 				default:
@@ -130,7 +131,8 @@ private:
 
 	void _startSim_()
 	{
-		pthis->m_state.set<SSimulation>(pthis);
+		pthis->m_roads.emplace_back(m_selectedNode.clear());
+		pthis->m_state.set<SCompile>(pthis);
 	}
 
 	void _spawnLine_()

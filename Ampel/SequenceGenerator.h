@@ -11,12 +11,15 @@ public:
 	{
 	}
 
+	Sequence(Sequence&&) = default;
+	Sequence(const Sequence&) = default;
+
 	Sequence& operator=(Sequence&&) = default;
 	Sequence& operator=(const Sequence&) = default;
 
 	void push(DTrafficNodeDB::iterator node)
 	{
-		m_seq.emplace_back(node);
+		m_seq.back().emplace_back(node);
 	}
 
 	bool checkIfUsed(DTrafficNodeDB::iterator node)

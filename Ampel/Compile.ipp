@@ -42,16 +42,21 @@ private:
 		{
 			seq.push(buffIter);
 
-			for (auto compIter = buffIter + 1; compIter != buffIter; ++compIter)
+			for (auto compIter = buffIter + 1; compIter != buffIter;)
 			{
 				if (compIter == pthis->m_roads.end())
+				{
 					compIter = pthis->m_roads.begin();
+					continue;
+				}
 
 				if (seq.checkIfUsed(compIter))
 					seq.push(compIter);
 
-				seq.pushRow();
+				++compIter;
 			}
+
+			seq.pushRow();
 		}
 
 

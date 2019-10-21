@@ -65,9 +65,6 @@
     <ClInclude Include="Simulation.ipp">
       <Filter>Header Files\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="SequenceGenerator.h">
-      <Filter>Header Files\Simulation</Filter>
-    </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
@@ -93,6 +90,9 @@
       <Filter>Header Files\Mapping</Filter>
     </ClInclude>
     <ClInclude Include="Compile.ipp">
+      <Filter>Header Files\Compile</Filter>
+    </ClInclude>
+    <ClInclude Include="SequenceGenerator.h">
       <Filter>Header Files\Compile</Filter>
     </ClInclude>
   </ItemGroup>

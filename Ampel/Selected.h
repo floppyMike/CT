@@ -21,9 +21,12 @@ public:
 		return old;
 	}
 
-	void clear() noexcept
+	std::unique_ptr<DTrafficNode> clear() noexcept
 	{
+		auto temp = std::move(m_selected);
 		m_selected = nullptr;
+
+		return temp;
 	}
 
 	auto* get() noexcept
