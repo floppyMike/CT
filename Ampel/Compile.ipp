@@ -5,7 +5,7 @@ public:
 	SCompile(App* app)
 		: pthis(app)
 	{
-		pthis->m_doRender = false;
+		*pthis->m_doRender = false;
 		m_seqGen = std::async(std::launch::async, [this] { return _generate_(); });
 	}
 
@@ -17,13 +17,13 @@ public:
 
 	void draw() override
 	{
-
+		return;
 	}
 
 private:
 	App* pthis;
 
-	std::future<std::vector<std::vector<decltype(pthis->m_roads.begin())>>> m_seqGen;
+	std::future<Sequence> m_seqGen;
 
 
 	void _eraseDupe_()
@@ -32,27 +32,25 @@ private:
 			i->nodes.erase(std::unique(i->nodes.begin(), i->nodes.end()), i->nodes.end());
 	}
 
-	std::vector<std::vector<decltype(pthis->m_roads.begin())>> _generate_()
+	auto _generate_() -> Sequence
 	{
 		_eraseDupe_();
 
-		std::vector<std::vector<decltype(pthis->m_roads.begin())>> seq(1);
+		Sequence seq;
 
 		for (auto buffIter = pthis->m_roads.begin(); buffIter != pthis->m_roads.end(); ++buffIter)
 		{
-			seq.back().emplace_back(buffIter);
+			seq.push(buffIter);
 
 			for (auto compIter = buffIter + 1; compIter != buffIter; ++compIter)
 			{
 				if (compIter == pthis->m_roads.end())
 					compIter = pthis->m_roads.begin();
 
-				for (auto& seqIter : seq.back())
-					if (std::find_first_of((*compIter)->nodes.begin(), (*compIter)->nodes.end(), 
-						(*seqIter)->nodes.begin(), (*seqIter)->nodes.end()) != (*compIter)->nodes.end())
-					{
-						seq.back().emplace_back(compIter);
-					}
+				if (seq.checkIfUsed(compIter))
+					seq.push(compIter);
+
+				seq.pushRow();
 			}
 		}
 

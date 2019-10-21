@@ -10,6 +10,9 @@ class TrafficNodeDB : std::vector<std::unique_ptr<DTrafficNode>>, public Func<Tr
 	using baseV = std::vector<std::unique_ptr<DTrafficNode>>;
 
 public:
+	using iterator = baseV::iterator;
+	using reverse_iterator = baseV::reverse_iterator;
+
 	TrafficNodeDB() = default;
 
 	using baseV::begin;
@@ -49,3 +52,5 @@ public:
 			i->nodes.erase(std::remove(i->nodes.begin(), i->nodes.end(), node), i->nodes.end());
 	}
 };
+
+using DTrafficNodeDB = TrafficNodeDB<TrafficNodeOnMouse, TrafficNodeDeleter>;
