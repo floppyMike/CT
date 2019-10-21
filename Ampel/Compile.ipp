@@ -11,7 +11,8 @@ public:
 
 	void update() override
 	{
-		auto ass = m_seqGen.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready;
+		if (m_seqGen.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready)
+			pthis->m_state.set<App::SSimulation>(pthis, std::move(m_seqGen.get()));
 	}
 
 	void draw() override
@@ -22,7 +23,7 @@ public:
 private:
 	App* pthis;
 
-	std::future<std::vector<bool>> m_seqGen;
+	std::future<std::vector<std::vector<decltype(pthis->m_roads.begin())>>> m_seqGen;
 
 
 	void _eraseDupe_()
@@ -31,45 +32,31 @@ private:
 			i->nodes.erase(std::unique(i->nodes.begin(), i->nodes.end()), i->nodes.end());
 	}
 
-	std::vector<bool> _generate_()
+	std::vector<std::vector<decltype(pthis->m_roads.begin())>> _generate_()
 	{
 		_eraseDupe_();
-		std::clog << "Duplicates erased.\n";
-
-		std::vector<decltype(pthis->m_roads.begin())> orderedList(pthis->m_roads.size());
-		std::generate(orderedList.begin(), orderedList.end(), [beg = pthis->m_roads.begin()]() mutable { return beg++; });
-		std::clog << "Buffer generated.\n";
-
-		std::sort(orderedList.begin(), orderedList.end(), [](auto i1, auto i2) { return (*i1)->nodes.size() < (*i2)->nodes.size(); });
-		std::clog << "Buffer sorted.\n";
 
 		std::vector<std::vector<decltype(pthis->m_roads.begin())>> seq(1);
 
-		for (auto buffIter = orderedList.begin(); buffIter != orderedList.end(); ++buffIter)
+		for (auto buffIter = pthis->m_roads.begin(); buffIter != pthis->m_roads.end(); ++buffIter)
 		{
-			for (auto& seqIter : seq.back())
-				if (std::find_first_of((*seqIter)->nodes.begin(), (*seqIter)->nodes.end(),
-					(**buffIter)->nodes.begin(), (**buffIter)->nodes.end()) == (*seqIter)->nodes.end())
-				{
-					seq.back().emplace_back(*buffIter);
-				}
-		}
+			seq.back().emplace_back(buffIter);
 
-		for (size_t seqIndex = 0; seqIndex < seq.size(); ++seqIndex)
-		{
-			for (auto& i : orderedList)
+			for (auto compIter = buffIter + 1; compIter != buffIter; ++compIter)
 			{
-				for (auto iter = (*i)->nodes.begin(); iter != (*i)->nodes.end(); ++iter)
-				{
-					if (seq[seqIndex][std::distance(pthis->m_roads.begin(), iter)])
-					{
+				if (compIter == pthis->m_roads.end())
+					compIter = pthis->m_roads.begin();
 
+				for (auto& seqIter : seq.back())
+					if (std::find_first_of((*compIter)->nodes.begin(), (*compIter)->nodes.end(), 
+						(*seqIter)->nodes.begin(), (*seqIter)->nodes.end()) != (*compIter)->nodes.end())
+					{
+						seq.back().emplace_back(compIter);
 					}
-				}
 			}
 		}
 
 
-		return std::vector<bool>();
+		return seq;
 	}
 };
