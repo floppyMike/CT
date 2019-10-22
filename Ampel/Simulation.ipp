@@ -6,6 +6,7 @@ public:
 	SSimulation(App* app, Sequence&& seq)
 		: pthis(app)
 		, m_seq(std::move(seq))
+		, m_iter(m_seq.begin())
 	{
 		*pthis->m_doRender = true;
 	}
@@ -29,5 +30,16 @@ public:
 
 private:
 	App* pthis;
+
 	Sequence m_seq;
+	Sequence::iterator m_iter;
+
+
+	void _jumpNext_()
+	{
+		for (auto& i : *m_iter)
+		{
+			(*i)->
+		}
+	}
 };

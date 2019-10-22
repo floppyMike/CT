@@ -6,6 +6,9 @@
 class Sequence
 {
 public:
+	using iterator = std::vector<std::vector<DTrafficNodeDB::iterator>>::iterator;
+	using const_iterator = std::vector<std::vector<DTrafficNodeDB::iterator>>::const_iterator;
+
 	Sequence()
 		: m_seq(1)
 	{
@@ -36,6 +39,12 @@ public:
 	{
 		m_seq.resize(m_seq.size() + 1);
 	}
+
+	auto begin() const { return m_seq.begin(); }
+	auto end() const { return m_seq.end(); }
+
+	auto begin() { return m_seq.begin(); }
+	auto end() { return m_seq.end(); }
 
 private:
 	std::vector<std::vector<DTrafficNodeDB::iterator>> m_seq;

@@ -50,7 +50,7 @@ private:
 					continue;
 				}
 
-				if (seq.checkIfUsed(compIter))
+				if (!seq.checkIfUsed(compIter))
 					seq.push(compIter);
 
 				++compIter;
