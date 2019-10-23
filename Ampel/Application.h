@@ -19,6 +19,12 @@ class App
 public:
 	App(sdl::Renderer* r, bool* doRend);
 
+	void update()
+	{
+		m_state->update();
+		m_state.update();
+	}
+
 	void input(const SDL_Event& e)
 	{
 		m_state->input(e);
@@ -28,8 +34,6 @@ public:
 	{
 		_drawNodes_();
 		m_state->draw();
-
-		m_state.update();
 	}
 
 private:

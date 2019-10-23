@@ -9,10 +9,7 @@ public:
 	using iterator = std::vector<std::vector<DTrafficNodeDB::iterator>>::iterator;
 	using const_iterator = std::vector<std::vector<DTrafficNodeDB::iterator>>::const_iterator;
 
-	Sequence()
-		: m_seq(1)
-	{
-	}
+	Sequence() = default;
 
 	Sequence(Sequence&&) = default;
 	Sequence(const Sequence&) = default;

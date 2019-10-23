@@ -25,6 +25,7 @@ public:
 
 	void update()
 	{
+		m_app.update();
 	}
 
 	void fixedUpdate() {}

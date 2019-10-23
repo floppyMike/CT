@@ -11,7 +11,7 @@ public:
 
 	void update() override
 	{
-		if (m_seqGen.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready)
+		if (m_seqGen.valid() && m_seqGen.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready)
 			pthis->m_state.set<App::SSimulation>(pthis, std::move(m_seqGen.get()));
 	}
 
@@ -40,6 +40,7 @@ private:
 
 		for (auto buffIter = pthis->m_roads.begin(); buffIter != pthis->m_roads.end(); ++buffIter)
 		{
+			seq.pushRow();
 			seq.push(buffIter);
 
 			for (auto compIter = buffIter + 1; compIter != buffIter;)
@@ -55,11 +56,9 @@ private:
 
 				++compIter;
 			}
-
-			seq.pushRow();
 		}
 
-
+		
 		return seq;
 	}
 };
