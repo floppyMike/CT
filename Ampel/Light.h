@@ -28,6 +28,17 @@ public:
 		return *this;
 	}
 
+	constexpr auto& translate(const sdl::Point<int>& delta) noexcept
+	{
+		m_circle.translate(delta);
+		return *this;
+	}
+
+	constexpr const auto& shape() const noexcept
+	{
+		return m_circle.shape();
+	}
+
 	void draw() const
 	{
 		if (m_on)

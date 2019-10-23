@@ -1,84 +1,184 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="Window">
-    <Position X="6.75" Y="4.75" Width="1.5" />
+    <Position X="14" Y="6" Width="1.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Enum Name="Window::State" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>main.cpp</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ABACAACAAAghAAAAAAAAAAAAAAAhAAYACAAACAA0AAI=</HashCode>
-      <FileName>main.cpp</FileName>
+      <HashCode>AABCAACAgAgAAAAAAAAAAAAAAAAAAAIAAAAACAAUAAA=</HashCode>
+      <FileName>Window.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="m_veh" />
-      <Field Name="m_ped" />
+      <Field Name="m_app" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="VehicleLight">
-    <Position X="3.75" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAIAIAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="m_button" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="TrafficLight">
-    <Position X="3.75" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAgAAAAAIAAAAAIAAAAAAwAAAAAAAAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="m_body" />
-      <Field Name="m_box" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Light" Collapsed="true">
-    <Position X="9.25" Y="1.75" Width="1.5" />
+  <Class Name="Light">
+    <Position X="1.25" Y="4" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
       <Enum Name="Light::Color" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>main.cpp</NewMemberFileName>
+          <NewMemberFileName>Light.h</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAEIAAgABAAAAAACBAAAAAAgAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LightBody">
-    <Position X="3.75" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAAAAIAAAAAIAAAAAAAAAABAAAACEA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <HashCode>AAAAAEAAAAAAAAAAAEIAAgABAAAAAACBAAAAAAgABAA=</HashCode>
+      <FileName>Light.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LightBox">
-    <Position X="0.75" Y="4.75" Width="1.5" />
+    <Position X="1" Y="0.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAgAAAAAIAAAAAIAAAAAAIAAAEAAAABAA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <FileName>LightBox.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Button">
-    <Position X="3.75" Y="10" Width="1.5" />
+  <Class Name="App">
+    <Position X="9.25" Y="3.75" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="App::SSetup">
+        <TypeIdentifier>
+          <NewMemberFileName>Application.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="App::SSimulation" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Application.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AEAEAAAAAAAAgAAAAAIACgAAAAAAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>main.cpp</FileName>
+      <HashCode>AAQAAAAEgAABAAAAAAIAAAAAQAAAABAAAAAACAAhAAA=</HashCode>
+      <FileName>Application.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_links" />
+      <Field Name="m_nodes" />
+      <Field Name="m_roads" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Node&lt;...Func&lt;&gt;&gt;">
+    <Position X="4.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAQAAAEABAA=</HashCode>
+      <FileName>Node.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="TrafficConnector">
+    <Position X="4" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ECAAAACAAAAAAAAAAAIAAAgAQAAAAAQBAAAAAAAABAA=</HashCode>
+      <FileName>TrafficConnector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoadLights">
+    <Position X="4" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAIAAAAAAAAAAAAAAIAAIAEAAQAAAAACAAAAAAABAI=</HashCode>
+      <FileName>RoadLights.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_ped" />
+      <Field Name="m_veh" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LinkDB&lt;...Func&lt;&gt;&gt;">
+    <Position X="6.75" Y="12.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NodeDB&lt;...Func&lt;&gt;&gt;">
+    <Position X="9.75" Y="12.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>NodeDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrafficNodeDB&lt;...Func&lt;&gt;&gt;">
+    <Position X="9.75" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>TrafficNodeDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LinePlotter">
+    <Position X="12.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAgAAAAAIAQAABQACAQAABABAAAAAAAAA=</HashCode>
+      <FileName>LinePlotter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Link&lt;...Func&lt;&gt;&gt;">
+    <Position X="1.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAgAAAAAAAIAAAAAAAAABAAAAAAAQAAABBA=</HashCode>
+      <FileName>Line.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LinkComparison&lt;T&gt;">
+    <Position X="7" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Line.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LinkFinder&lt;T&gt;">
+    <Position X="7" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LinkRemover&lt;T&gt;">
+    <Position X="7" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NodeOnMouse&lt;T&gt;">
+    <Position X="10" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Node.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NodesOnMouse&lt;T&gt;">
+    <Position X="10" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>NodeDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrafficNodeDeleter&lt;T&gt;">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>TrafficNodeDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TraffNodeOnMouse&lt;T&gt;">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>RoadsDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="TrafficNode&lt;...Func&lt;&gt;&gt;">
+    <Position X="4.25" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>RoadsDB.h</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

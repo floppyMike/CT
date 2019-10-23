@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Includes.h"
+#include "Light.h"
 
 class LightBox
 {
@@ -48,7 +49,18 @@ public:
 			i.draw();
 	}
 
-	constexpr const auto& shape() const { return m_box.shape(); }
+	constexpr const auto& shape() const noexcept 
+	{
+		return m_box.shape(); 
+	}
+
+	auto& translate(const sdl::Point<int>& delta) noexcept
+	{
+		m_box.translate(delta);
+		for (auto& i : m_lights)
+			i.translate(delta);
+		return *this;
+	}
 
 private:
 	sdl::RectDraw<> m_box;
