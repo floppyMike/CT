@@ -17,6 +17,9 @@ public:
 	auto begin() { return m_seq.begin(); }
 	auto end() { return m_seq.end(); }
 
+	auto begin() const { return m_seq.begin(); }
+	auto end() const { return m_seq.end(); }
+
 private:
 	std::vector<DTrafficNodeDB::iterator> m_seq;
 };

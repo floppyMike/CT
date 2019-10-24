@@ -21,6 +21,12 @@ public:
 		m_seq.resize(m_seq.size() + 1);
 	}
 
+	template<typename Iter>
+	auto erase(Iter b, Iter e)
+	{
+		return m_seq.erase(b, e);
+	}
+
 	auto& activeRow()
 	{
 		return m_seq.back();
@@ -58,7 +64,11 @@ class SequenceFinisher : public crtp<T, SequenceFinisher>
 public:
 	void makeUnique()
 	{
-		this->_().erase(std::unique(this->_().begin(), this->_().end()), this->_().end());
+		this->_().erase(std::unique(this->_().begin(), this->_().end(), [](const Sequence& s1, const Sequence& s2) 
+			{
+				auto summer = [](auto s, auto iter) { return s + reinterpret_cast<uintptr_t>(&*iter); };
+				return std::accumulate(s1.begin(), s1.end(), 0ull, summer) == std::accumulate(s2.begin(), s2.end(), uintptr_t(0), summer);
+			}), this->_().end());
 	}
 };
 

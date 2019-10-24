@@ -58,6 +58,8 @@ private:
 			}
 		}
 
+		seq.makeUnique();
+
 		
 		return seq;
 	}
