@@ -3,7 +3,7 @@
 #include "Includes.h"
 #include "RoadsDB.h"
 #include "Selected.h"
-#include "SequenceGenerator.h"
+#include "SequenceDB.h"
 #include "NodeDB.h"
 #include "TrafficNodeDB.h"
 #include "LinkDB.h"
