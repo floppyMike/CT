@@ -40,6 +40,11 @@ public:
 		return *this;
 	}
 
+	auto isOn(size_t idx) const noexcept
+	{
+		return m_lights[idx].isOn();
+	}
+
 	void draw()
 	{
 		m_box.renderer()->setColor({ 0, 0, 0, 0xFF });

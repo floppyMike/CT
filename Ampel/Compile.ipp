@@ -23,7 +23,7 @@ public:
 private:
 	App* pthis;
 
-	std::future<Sequence> m_seqGen;
+	std::future<SequenceDB> m_seqGen;
 
 
 	void _eraseDupe_()
@@ -32,11 +32,11 @@ private:
 			i->nodes.erase(std::unique(i->nodes.begin(), i->nodes.end()), i->nodes.end());
 	}
 
-	auto _generate_() -> Sequence
+	auto _generate_() -> SequenceDB
 	{
 		_eraseDupe_();
 
-		Sequence seq;
+		SequenceDB seq;
 
 		for (auto buffIter = pthis->m_roads.begin(); buffIter != pthis->m_roads.end(); ++buffIter)
 		{
@@ -57,6 +57,8 @@ private:
 				++compIter;
 			}
 		}
+
+		seq.makeUnique();
 
 		
 		return seq;

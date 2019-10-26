@@ -28,6 +28,11 @@ public:
 		return *this;
 	}
 
+	auto isOn() const noexcept
+	{
+		return m_on;
+	}
+
 	constexpr auto& translate(const sdl::Point<int>& delta) noexcept
 	{
 		m_circle.translate(delta);

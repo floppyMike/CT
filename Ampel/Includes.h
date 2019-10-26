@@ -9,6 +9,7 @@
 #include <CustomLibrary/SDL/State.h>
 
 #include <future>
+#include <numeric>
 
 using namespace ctl;
 using namespace std::chrono_literals;

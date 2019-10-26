@@ -3,23 +3,35 @@
 class App::SSimulation : public sdl::IState
 {
 public:
-	static constexpr std::chrono::seconds DURATION = std::chrono::seconds(10);
+	static constexpr std::chrono::seconds DURATION = 10s;
 
-	SSimulation(App* app, Sequence&& seq)
+	SSimulation(App* app, SequenceDB&& seq)
 		: pthis(app)
 		, m_seq(std::move(seq))
 		, m_iter(m_seq.begin())
 		, m_dur(std::chrono::steady_clock::now() + DURATION)
 	{
 		*pthis->m_doRender = true;
+
+		for (auto& i : *m_iter)
+			(*i)->flipTo(RoadLights::TrafficState::PASSING);
 	}
 
 	void update() override
 	{
+		for (auto& i : pthis->m_roads)
+			i->update();
+
 		if (std::chrono::steady_clock::now() >= m_dur)
 		{
+			for (auto& i : *m_iter)
+				(*i)->flipTo(RoadLights::TrafficState::STOPPED);
+
 			_jumpNext_();
 			m_dur = std::chrono::steady_clock::now() + DURATION;
+
+			for (auto& i : *m_iter)
+				(*i)->flipTo(RoadLights::TrafficState::PASSING);
 		}
 	}
 
@@ -34,29 +46,13 @@ public:
 			for (const auto& i : (*i)->lines)
 				i->draw();
 		}
-
-		//for (auto [trafNodeIter, markIter] = std::pair{ pthis->m_roads.begin(), m_iter->begin() }; trafNodeIter != pthis->m_roads.end(); ++trafNodeIter)
-		//{
-		//	(*trafNodeIter)->draw();
-
-		//	if (markIter != m_iter->end() && trafNodeIter == *markIter)
-		//	{
-		//		pthis->m_r->setColor(sdl::RED);
-		//		++markIter;
-		//	}
-		//	else
-		//		pthis->m_r->setColor(sdl::BLACK);
-
-		//	for (const auto& i : pthis->m_links)
-		//		i->draw();
-		//}
 	}
 
 private:
 	App* pthis;
 
-	Sequence m_seq;
-	Sequence::iterator m_iter;
+	SequenceDB m_seq;
+	SequenceDB::iterator m_iter;
 
 	std::chrono::steady_clock::time_point m_dur;
 

@@ -92,7 +92,10 @@
     <ClInclude Include="Compile.ipp">
       <Filter>Header Files\Compile</Filter>
     </ClInclude>
-    <ClInclude Include="SequenceGenerator.h">
+    <ClInclude Include="SequenceDB.h">
+      <Filter>Header Files\Compile</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
       <Filter>Header Files\Compile</Filter>
     </ClInclude>
   </ItemGroup>
