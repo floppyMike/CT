@@ -3,7 +3,7 @@
 class App::SSimulation : public sdl::IState
 {
 public:
-	static constexpr std::chrono::seconds DURATION = std::chrono::seconds(10);
+	static constexpr std::chrono::seconds DURATION = 10s;
 
 	SSimulation(App* app, SequenceDB&& seq)
 		: pthis(app)
@@ -12,14 +12,26 @@ public:
 		, m_dur(std::chrono::steady_clock::now() + DURATION)
 	{
 		*pthis->m_doRender = true;
+
+		for (auto& i : *m_iter)
+			(*i)->flipTo(RoadLights::TrafficState::PASSING);
 	}
 
 	void update() override
 	{
+		for (auto& i : pthis->m_roads)
+			i->update();
+
 		if (std::chrono::steady_clock::now() >= m_dur)
 		{
+			for (auto& i : *m_iter)
+				(*i)->flipTo(RoadLights::TrafficState::STOPPED);
+
 			_jumpNext_();
 			m_dur = std::chrono::steady_clock::now() + DURATION;
+
+			for (auto& i : *m_iter)
+				(*i)->flipTo(RoadLights::TrafficState::PASSING);
 		}
 	}
 
