@@ -8,11 +8,11 @@ class Foo : public Func<Foo<Func...>>...
 public:
 	Foo() = default;
 
-	template<template<typename> class... Func>
-	Foo(const Foo<Func...>& o)
-		: m_a(o.get())
-	{
-	}
+	//template<template<typename> class... Func>
+	//Foo(const Foo<Func...>& o)
+	//	: m_a(o.get())
+	//{
+	//}
 
 	auto get() const { return m_a; }
 	void set(int a) { m_a = a; }
@@ -47,13 +47,13 @@ public:
 int main()
 {
 	Foo<> a;
+	
+
 	Foo<Incre10> b;
 	b.increment();
 
 	Foo<Incre10, Incre20> c;
 	c.increment();
-
-	b = a;
 
 	std::cout << b.get() << '\n';
 
