@@ -97,6 +97,28 @@ public:
 		m_tranferTill = std::chrono::steady_clock::now() + YELLOW_TRANFER_TIME;
 	}
 
+	void flip()
+	{
+		switch (m_state)
+		{
+		case TrafficState::PASSING:
+			flipTo(TrafficState::STOPPED);
+			break;
+
+		case TrafficState::STOPPED:
+			flipTo(TrafficState::PASSING);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	TrafficState state() noexcept
+	{
+		return m_state;
+	}
+
 private:
 	std::chrono::steady_clock::time_point m_tranferTill = std::chrono::steady_clock::time_point::max();
 	TrafficState m_state = TrafficState::STOPPED;

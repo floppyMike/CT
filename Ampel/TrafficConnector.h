@@ -47,6 +47,8 @@ public:
 	using RoadLights::pos;
 	using RoadLights::update;
 	using RoadLights::flipTo;
+	using RoadLights::state;
+	using RoadLights::flip;
 
 private:
 	sdl::Renderer* m_r;

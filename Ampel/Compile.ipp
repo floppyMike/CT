@@ -53,7 +53,7 @@ private:
 				std::clog << "Element address: " << compIter->get() << '\n';
 
 				if (!seq.checkIfUsed(compIter))
-					std::clog << "Element push.\n";
+					std::clog << "Element push.\n",
 					seq.push(compIter);
 
 				++compIter;
@@ -61,7 +61,7 @@ private:
 		}
 
 		seq.makeUnique();
-
+		seq.sort();
 		
 		return seq;
 	}
