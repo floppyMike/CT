@@ -9,11 +9,11 @@ public:
 		: m_box(r)
 		, m_button(r)
 	{
-		m_button.func([this] { m_event.pushEvent(); });
-		m_event.userType(Events::BUTTON_PRESS);
+		m_button.func([this] { m_event.push_event(); });
+		m_event.user_type(Events::BUTTON_PRESS);
 	}
 
-	auto& boxShape(const sdl::Rect<int, int>& s) noexcept
+	auto& boxShape(const mth::Rect<int, int>& s) noexcept
 	{
 		m_box.shape(s);
 		m_button.shape({ s.x + (s.w >> 1), s.y + (s.h >> 1), std::min<Uint32>(s.w >> 1, s.h >> 1) - (s.w >> 2) });
@@ -27,18 +27,18 @@ public:
 
 	void draw()
 	{
-		m_box.renderer()->setColor({ 0xFF, 0xFF, 0xFF, 0xFF });
-		m_box.drawFilled();
-		m_box.renderer()->setColor({ 0, 0, 0, 0xFF });
-		m_box.draw();
+		m_box.renderer()->color({ 0xFF, 0xFF, 0xFF, 0xFF });
+		m_box.draw_filled_rect();
+		m_box.renderer()->color({ 0, 0, 0, 0xFF });
+		m_box.draw_rect();
 
-		m_box.renderer()->setColor({ 128, 128, 128, 0xFF });
-		m_button.drawFilled();
+		m_box.renderer()->color({ 128, 128, 128, 0xFF });
+		m_button.draw_filled_circle();
 	}
 
 private:
-	sdl::RectDraw<> m_box;
-	sdl::CircleDraw<sdl::ButtonEx> m_button;
+	sdl::RectFrame<sdl::EDrawable> m_box;
+	sdl::CircleFrame<sdl::EButton, sdl::EDrawable> m_button;
 
 	sdl::UserEvent m_event;
 };

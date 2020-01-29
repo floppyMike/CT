@@ -7,7 +7,7 @@ class LightBody
 	static constexpr int FLOOR = 450;
 
 public:
-	LightBody(sdl::Renderer* r, const sdl::Point<int>& coord, int width)
+	LightBody(sdl::Renderer* r, const mth::Point<int>& coord, int width)
 		: m_pole(r)
 		, m_foot(r)
 	{
@@ -20,14 +20,14 @@ public:
 
 	void draw()
 	{
-		m_pole.renderer()->setColor({ 0, 0, 0, 0xFF });
-		m_pole.draw();
-		m_foot.draw();
+		m_pole.renderer()->color({ 0, 0, 0, 0xFF });
+		m_pole.draw_rect();
+		m_foot.draw_rect();
 	}
 
 	constexpr auto poleShape() { return m_pole.shape(); }
 
 private:
-	sdl::RectDraw<> m_pole;
-	sdl::RectDraw<> m_foot;
+	sdl::RectFrame<sdl::EDrawable> m_pole;
+	sdl::RectFrame<sdl::EDrawable> m_foot;
 };

@@ -7,7 +7,7 @@
 class TrafficLight
 {
 public:
-	TrafficLight(sdl::Renderer* r, const sdl::Point<int>& pos, int width, std::initializer_list<Light::Color>&& colors)
+	TrafficLight(sdl::Renderer* r, const mth::Point<int>& pos, int width, std::initializer_list<Light::Color>&& colors)
 		: m_box(r, pos, width, std::move(colors))
 		, m_body(r, { pos.x, pos.y + m_box.shape().h - 1 }, width)
 	{

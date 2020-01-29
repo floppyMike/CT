@@ -18,6 +18,11 @@ class Window
 public:
 	Window();
 
+	void pre_pass()
+	{
+
+	}
+
 	void event(const SDL_Event& e)
 	{
 		m_state->input(e);
@@ -28,11 +33,11 @@ public:
 		m_state->update();
 	}
 
-	void fixedUpdate() {}
+	void fixed_update() {}
 
 	void render()
 	{
-		m_rend.setColor({ 0xFF, 0xFF, 0xFF, 0xFF });
+		m_rend.color({ 0xFF, 0xFF, 0xFF, 0xFF });
 		m_rend.fill();
 
 		m_veh.draw();
@@ -129,7 +134,7 @@ inline Window::Window()
 	, m_veh(&m_rend, { 200, 50 }, 50, { Light::RED, Light::YELLOW, Light::GREEN })
 	, m_ped(&m_rend, { 400, 50 }, 50, { Light::RED, Light::GREEN })
 {
-	m_rend.setLogicalSize(m_win.dim());
+	m_rend.logical_size(m_win.dim());
 
 	m_state = std::make_unique<SBlink>(this);
 

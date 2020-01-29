@@ -5,10 +5,10 @@
 class LightBox
 {
 public:
-	LightBox(sdl::Renderer* r, const sdl::Point<int>& coord, int width, std::initializer_list<Light::Color>&& colors)
+	LightBox(sdl::Renderer* r, const mth::Point<int>& coord, int width, std::initializer_list<Light::Color>&& colors)
 		: m_box(r)
 	{
-		sdl::Dim<int> dim;
+		mth::Dim<int> dim;
 		dim.w = width;
 
 		const Uint32 radius = width * 3 >> 3;
@@ -20,7 +20,7 @@ public:
 		m_lights.reserve(colors.size());
 		for (int i = 0; i < colors.size(); ++i)
 		{
-			sdl::Circle<int, Uint32> cir(coord.x + (width >> 1), coord.y + pause + radius + i * ((radius << 1) + pause), radius);
+			mth::Circle<int, Uint32> cir(coord.x + (width >> 1), coord.y + pause + radius + i * ((radius << 1) + pause), radius);
 			const auto& col = *(colors.begin() + i);
 
 			m_lights.emplace_back(r, cir, col);
@@ -41,8 +41,8 @@ public:
 
 	void draw()
 	{
-		m_box.renderer()->setColor({ 0, 0, 0, 0xFF });
-		m_box.draw();
+		m_box.renderer()->color({ 0, 0, 0, 0xFF });
+		m_box.draw_rect();
 
 		for (const auto& i : m_lights)
 			i.draw();
@@ -51,6 +51,6 @@ public:
 	constexpr const auto& shape() const { return m_box.shape(); }
 
 private:
-	sdl::RectDraw<> m_box;
+	sdl::RectFrame<sdl::EDrawable> m_box;
 	std::vector<Light> m_lights;
 };

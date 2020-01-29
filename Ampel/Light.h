@@ -9,7 +9,7 @@ class Light
 public:
 	enum Color { RED, YELLOW, GREEN };
 
-	Light(sdl::Renderer* rend, const sdl::Circle<int, Uint32>& c, Color col) noexcept
+	Light(sdl::Renderer* rend, const mth::Circle<int, Uint32>& c, Color col) noexcept
 		: m_circle(rend)
 		, m_color(col)
 	{
@@ -32,16 +32,16 @@ public:
 	{
 		if (m_on)
 		{
-			m_circle.renderer()->setColor(COLORS[m_color]);
-			m_circle.drawFilled();
+			m_circle.renderer()->color(COLORS[m_color]);
+			m_circle.draw_filled_circle();
 		}
 
-		m_circle.renderer()->setColor({ 0, 0, 0, 0xFF });
-		m_circle.draw();
+		m_circle.renderer()->color({ 0, 0, 0, 0xFF });
+		m_circle.draw_circle();
 	}
 
 private:
-	sdl::CircleDraw<> m_circle;
+	sdl::CircleFrame<sdl::EDrawable> m_circle;
 	Color m_color;
 	bool m_on = false;
 };

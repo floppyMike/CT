@@ -6,7 +6,7 @@ int main(int argc, char** argv)
 
 	Window win;
 	sdl::RunLoop<decltype(win)> run;
-	run.addWindow(&win);
+	run.add_window(&win);
 
 	run.run(30);
 
