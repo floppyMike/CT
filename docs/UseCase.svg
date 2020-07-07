@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Bouml (http://bouml.free.fr/) -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="1037" height="467" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="321" y="125" width="203" height="320" />
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" font-weight="bold" x="327" y="141">Ampel</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="742" y="119" width="283" height="336" />
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" font-weight="bold" x="748" y="135">Setup</text>
+</g>
+<g>
+	<ellipse fill="none" stroke="black" stroke-width="1" stroke-opacity="1" cx="161" cy="270" rx="10" ry="10" />
+	<line stroke="black" stroke-opacity="1" x1="143" y1="288" x2="178" y2="288" />
+	<line stroke="black" stroke-opacity="1" x1="161" y1="280" x2="161" y2="304" />
+	<line stroke="black" stroke-opacity="1" x1="161" y1="304" x2="145" y2="323" />
+	<line stroke="black" stroke-opacity="1" x1="161" y1="304" x2="176" y2="323" />
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" text-anchor="middle" x="163" y="340">Auto</text>
+</g>
+<g>
+	<ellipse fill="none" stroke="black" stroke-width="1" stroke-opacity="1" cx="641" cy="265" rx="10" ry="10" />
+	<line stroke="black" stroke-opacity="1" x1="623" y1="283" x2="658" y2="283" />
+	<line stroke="black" stroke-opacity="1" x1="641" y1="275" x2="641" y2="299" />
+	<line stroke="black" stroke-opacity="1" x1="641" y1="299" x2="625" y2="318" />
+	<line stroke="black" stroke-opacity="1" x1="641" y1="299" x2="656" y2="318" />
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" text-anchor="middle" x="643" y="335">User</text>
+</g>
+<g>
+	<ellipse fill="#cbcbcb" stroke="none" cx="831" cy="281" rx="50" ry="24" />
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="826" cy="276" rx="50" ry="24" />
+</g>
+<g>
+	<ellipse fill="#cbcbcb" stroke="none" cx="859" cy="396" rx="50" ry="24" />
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="854" cy="391" rx="50" ry="24" />
+</g>
+<g>
+	<ellipse fill="#cbcbcb" stroke="none" cx="835" cy="186" rx="50" ry="24" />
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="830" cy="181" rx="50" ry="24" />
+</g>
+<g>
+	<ellipse fill="#cbcbcb" stroke="none" cx="430" cy="287" rx="50" ry="24" />
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="425" cy="282" rx="50" ry="24" />
+</g>
+<g>
+	<ellipse fill="#cbcbcb" stroke="none" cx="430" cy="383" rx="50" ry="24" />
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="425" cy="378" rx="50" ry="24" />
+</g>
+<g>
+	<ellipse fill="#cbcbcb" stroke="none" cx="427" cy="193" rx="50" ry="24" />
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="422" cy="188" rx="50" ry="24" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" x="765" y="432">Pfad Punkte erzeugen</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" x="767" y="222">Ampel spawnen</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" x="756" y="317">Ampeln verbinden</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" x="361" y="321">Auf Grün warten</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" x="351" y="417">Bei Grün bewegen</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="13" fill="#000000" xml:space="preserve" x="369" y="232">Bei rot halten</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="675" y1="316" x2="803" y2="370" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="195" y1="292" x2="371" y2="210" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="675" y1="297" x2="775" y2="283" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="195" y1="316" x2="374" y2="365" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="675" y1="279" x2="787" y2="207" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="195" y1="303" x2="374" y2="286" />
+</g>
+</svg>

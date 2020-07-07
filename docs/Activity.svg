@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Bouml (http://bouml.free.fr/) -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="879" height="994" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="205" y="87" width="525" height="413" rx="10" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="231" y="122">Setup</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="424" y="539" width="443" height="261" rx="10" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="450" y="574">Compiliation</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="18" y="547" width="342" height="435" rx="10" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="44" y="582">Simulation</text>
+</g>
+<g>
+	<ellipse fill="white" stroke="black" stroke-width="1" stroke-opacity="1" cx="796" cy="745" rx="11.5" ry="11.5" />
+	<ellipse fill="black" cx="796" cy="745" rx="8.5" ry="8.5" />
+</g>
+	<ellipse fill="black" stroke="none" cx="467" cy="115" rx="8.5" ry="8.5" />
+	<ellipse fill="black" stroke="none" cx="488" cy="625" rx="8.5" ry="8.5" />
+<line stroke="black" stroke-width="3" stroke-opacity="1" x1="467" y1="168" x2="467" y2="220" />
+	<ellipse fill="black" stroke="none" cx="226" cy="619" rx="8.5" ry="8.5" />
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="550" y="336" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="607" y="361">Knotenpfad in</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="607" y="376">speicher</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="607" y="391">hinzufügen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="90" y="756" width="156" height="56" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="168" y="784">Beleuchte und wechsel</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="168" y="799">die Pfaden und Ampel</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="594" y="182" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="651" y="207">In</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="651" y="222">Knotenspeicher</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="651" y="237">hinzufügen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="246" y="194" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="303" y="234">Ampel erzeugen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="362" y="259" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="419" y="299">Ampel löschen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="247" y="328" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="304" y="353">Ampel Speicher</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="304" y="368">ausfüllen und</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="304" y="383">selecten</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="588" y="428" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="645" y="453">Knotenpfad an</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="645" y="468">Ampel</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="645" y="483">hinzufügen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="482" y="248" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="539" y="280">Knotenpfad</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="539" y="295">erzeugen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="149" y="648" width="152" height="52" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="225" y="674">Hole iterator von</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="225" y="689">Compilieraten Sequenz</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="377" y="379" width="146" height="72" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="450" y="408">Ampel aus Speicher</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="450" y="423">herausnehmen und</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="450" y="438">Knotenpfade löschen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="558" y="670" width="112" height="62" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="614" y="694">Generiere</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="614" y="709">Sequenzen von</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="614" y="724">Ampeln</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="170" y="870" width="146" height="54" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="243" y="897">Warte bis Iterationszeit</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="243" y="912">vorüber ist</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="520" y="99" width="114" height="64" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="577" y="131">Knotenpunkt</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="577" y="146">erzeugen</text>
+<g>
+	<rect fill="none" stroke="black" stroke-opacity="1" x="713" y="598" width="110" height="66" rx="10" />
+</g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="768" y="631">Sortiere die</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" text-anchor="middle" x="768" y="646">Sequenzen</text>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="433" y1="258" x2="441" y2="255" />
+	<line stroke="black" stroke-opacity="1" x1="433" y1="258" x2="430" y2="249" />
+	<line stroke="black" stroke-opacity="1" x1="460" y1="206" x2="433" y2="258" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="467" y1="166" x2="473" y2="160" />
+	<line stroke="black" stroke-opacity="1" x1="467" y1="166" x2="461" y2="160" />
+	<line stroke="black" stroke-opacity="1" x1="467" y1="124" x2="467" y2="166" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="519" y1="161" x2="510" y2="159" />
+	<line stroke="black" stroke-opacity="1" x1="519" y1="161" x2="517" y2="169" />
+	<line stroke="black" stroke-opacity="1" x1="475" y1="188" x2="519" y2="161" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="360" y1="214" x2="367" y2="218" />
+	<line stroke="black" stroke-opacity="1" x1="360" y1="214" x2="364" y2="206" />
+	<line stroke="black" stroke-opacity="1" x1="460" y1="195" x2="360" y2="214" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="303" y1="327" x2="309" y2="321" />
+	<line stroke="black" stroke-opacity="1" x1="303" y1="327" x2="297" y2="321" />
+	<line stroke="black" stroke-opacity="1" x1="303" y1="258" x2="303" y2="327" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="792" y1="732" x2="796" y2="724" />
+	<line stroke="black" stroke-opacity="1" x1="792" y1="732" x2="784" y2="727" />
+	<line stroke="black" stroke-opacity="1" x1="775" y1="664" x2="792" y2="732" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="562" y1="669" x2="559" y2="660" />
+	<line stroke="black" stroke-opacity="1" x1="562" y1="669" x2="553" y2="671" />
+	<line stroke="black" stroke-opacity="1" x1="497" y1="630" x2="562" y2="669" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="712" y1="653" x2="703" y2="650" />
+	<line stroke="black" stroke-opacity="1" x1="712" y1="653" x2="709" y2="661" />
+	<line stroke="black" stroke-opacity="1" x1="670" y1="674" x2="712" y2="653" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="292" y1="700" x2="286" y2="706" />
+	<line stroke="black" stroke-opacity="1" x1="292" y1="700" x2="298" y2="705" />
+	<line stroke="black" stroke-opacity="1" x1="307" y1="869" x2="292" y2="700" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="630" y1="427" x2="633" y2="419" />
+	<line stroke="black" stroke-opacity="1" x1="630" y1="427" x2="622" y2="423" />
+	<line stroke="black" stroke-opacity="1" x1="620" y1="400" x2="630" y2="427" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="581" y1="335" x2="582" y2="326" />
+	<line stroke="black" stroke-opacity="1" x1="581" y1="335" x2="572" y2="333" />
+	<line stroke="black" stroke-opacity="1" x1="563" y1="312" x2="581" y2="335" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="224" y1="869" x2="225" y2="860" />
+	<line stroke="black" stroke-opacity="1" x1="224" y1="869" x2="215" y2="867" />
+	<line stroke="black" stroke-opacity="1" x1="186" y1="812" x2="224" y2="869" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="180" y1="755" x2="188" y2="752" />
+	<line stroke="black" stroke-opacity="1" x1="180" y1="755" x2="177" y2="746" />
+	<line stroke="black" stroke-opacity="1" x1="210" y1="700" x2="180" y2="755" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="440" y1="378" x2="444" y2="370" />
+	<line stroke="black" stroke-opacity="1" x1="440" y1="378" x2="432" y2="373" />
+	<line stroke="black" stroke-opacity="1" x1="426" y1="323" x2="440" y2="378" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="513" y1="247" x2="513" y2="238" />
+	<line stroke="black" stroke-opacity="1" x1="513" y1="247" x2="504" y2="246" />
+	<line stroke="black" stroke-opacity="1" x1="475" y1="203" x2="513" y2="247" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="622" y1="181" x2="622" y2="172" />
+	<line stroke="black" stroke-opacity="1" x1="622" y1="181" x2="613" y2="180" />
+	<line stroke="black" stroke-opacity="1" x1="606" y1="163" x2="622" y2="181" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="225" y1="647" x2="231" y2="641" />
+	<line stroke="black" stroke-opacity="1" x1="225" y1="647" x2="219" y2="641" />
+	<line stroke="black" stroke-opacity="1" x1="225" y1="628" x2="225" y2="647" />
+</g>
+</svg>
