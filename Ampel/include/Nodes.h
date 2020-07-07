@@ -3,13 +3,10 @@
 #include "Includes.h"
 #include "Node.h"
 
-template<template<typename> class... Func>
-class NodeDB : std::vector<std::unique_ptr<DNode>>, public Func<NodeDB<Func...>>...
+class Nodes
 {
-	using baseV = std::vector<std::unique_ptr<DNode>>;
-
 public:
-	NodeDB() = default;
+	Nodes() = default;
 
 	using baseV::begin;
 	using baseV::rbegin;

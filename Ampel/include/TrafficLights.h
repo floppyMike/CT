@@ -1,31 +1,12 @@
 #pragma once
 
 #include "Includes.h"
-#include "TrafficConnector.h"
+#include "TrafficLight.h"
 
 
-template<template<typename> class... Func>
-class TrafficNodeDB : std::vector<std::unique_ptr<DTrafficNode>>, public Func<TrafficNodeDB<Func...>>...
-{
-	using baseV = std::vector<std::unique_ptr<DTrafficNode>>;
+using TrafficLights = std::vector<TrafficLight>;
 
-public:
-	using iterator = baseV::iterator;
-	using reverse_iterator = baseV::reverse_iterator;
-
-	TrafficNodeDB() = default;
-
-	using baseV::begin;
-	using baseV::rbegin;
-	using baseV::end;
-	using baseV::rend;
-
-	using baseV::emplace_back;
-	using baseV::erase;
-	using baseV::size;
-};
-
-
+/*
 template<typename T>
 class TrafficNodeOnMouse : public crtp<T, TrafficNodeOnMouse>
 {
@@ -52,5 +33,4 @@ public:
 			i->nodes.erase(std::remove(i->nodes.begin(), i->nodes.end(), node), i->nodes.end());
 	}
 };
-
-using DTrafficNodeDB = TrafficNodeDB<TrafficNodeOnMouse, TrafficNodeDeleter>;
+*/
