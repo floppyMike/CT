@@ -1,49 +1,51 @@
 #pragma once
 
+#include "CustomLibrary/SDL/Drawable.h"
+#include "CustomLibrary/SDL/Geometry.h"
 #include "Includes.h"
 #include "Node.h"
 
-class Link
+
+template<template<typename> class... Func>
+class Link : public Func<Link<Func...>>...
 {
 public:
-	explicit Link(const mth::Line<int> &l)
-		: m_line(l)
-	{
-	}
-
-	auto fromNode(Node *const ptr) noexcept -> auto &
-	{
-		m_nodes.first = ptr;
-		return *this;
-	}
-	auto fromNode() noexcept -> auto * { return m_nodes.first; }
-
-	auto toNode(Node *const ptr) noexcept -> auto &
-	{
-		m_nodes.second = ptr;
-		return *this;
-	}
-	auto toNode() noexcept -> auto & { return m_nodes.second; }
-
-	[[nodiscard]] auto shape() const noexcept -> const auto & { return m_line.shape(); }
-	auto shape(const mth::Line<int> &l) noexcept -> auto &
+	Link(sdl::Renderer* r, const mth::Line<int>& l)
+		: m_r(r)
 	{
 		m_line.shape(l);
-		return *this;
 	}
 
-	void draw(sdl::Renderer *r) { m_line.draw(r).line(); }
+	auto& fromNode(DNode* const ptr) noexcept { m_nodes.first = ptr; return *this; }
+	auto* fromNode() noexcept { return m_nodes.first; }
+
+	auto& toNode(DNode* const ptr) noexcept { m_nodes.second = ptr; return *this; }
+	auto& toNode() noexcept { return m_nodes.second; }
+
+	const auto& shape() const noexcept { return m_line.shape(); }
+	auto& shape(const mth::Line<int>& l) noexcept { m_line.shape(l); return *this; }
+
+	void draw()
+	{
+		m_line.draw(m_r).line();
+	}
 
 private:
-	std::pair<Node *, Node *>	   m_nodes;
+	sdl::Renderer *m_r;
+	std::pair<DNode*, DNode*> m_nodes;
 	sdl::ELineFrame<sdl::Drawable> m_line;
 };
+
 
 template<typename T>
 class LinkComparison : public crtp<T, LinkComparison>
 {
 public:
-	bool compareWith(const Node *const n) noexcept { return n == this->_().fromNode() || n == this->_().toNode(); }
+	bool compareWith(const DNode* const n) noexcept
+	{
+		return n == this->_().fromNode() || n == this->_().toNode();
+	}
 };
 
-// using DLink = Link<LinkComparison>;
+
+using DLink = Link<LinkComparison>;

@@ -6,45 +6,70 @@
 class LightBox
 {
 public:
-	LightBox(const mth::Point<int> &coord, size_t w, std::initializer_list<SDL_Color> &&colors)
+	LightBox(sdl::Renderer* r, const mth::Point<int>& coord, int width, std::initializer_list<Light::Color>&& colors)
+		: m_r(r)
 	{
-		assert(colors.size() != 0 && "Lights colors amount must be at least 1");
+		mth::Dim<int> dim;
+		dim.w = width;
 
-		const size_t rad = w / 4;
+		const Uint32 radius = width * 3 >> 3;
+		const auto pause = width >> 2;
 
-		m_box.shape(mth::Rect<int, int>(coord.x, coord.y, w, rad * (1 + 3 * colors.size())));
+		dim.h = 2 * radius * colors.size() + pause * (colors.size() + 1);
+		m_box.shape({ coord, dim });
 
 		m_lights.reserve(colors.size());
-		for (auto iter = colors.begin(); iter != colors.end(); ++iter)
+		for (int i = 0; i < colors.size(); ++i)
 		{
-			mth::Circle<int, Uint32> cir(coord.x + w / 2, rad * (2 + 3 * std::distance(colors.begin(), iter)) + coord.y,
-										 rad * 2);
-			m_lights.emplace_back(cir, *iter);
+			mth::Circle<int, Uint32> cir(coord.x + (width >> 1), coord.y + pause + radius + i * ((radius << 1) + pause), radius);
+			const auto& col = *(colors.begin() + i);
+
+			m_lights.emplace_back(r, cir, col);
 		}
 	}
 
-	constexpr void change(size_t idx, bool s) { m_lights[idx].change(s); }
-
-	[[nodiscard]] constexpr auto is_on(size_t idx) const noexcept { return m_lights[idx].is_on(); }
-
-	[[nodiscard]] auto			 light(size_t idx) const noexcept -> const auto & { return m_lights[idx]; }
-	[[nodiscard]] constexpr auto shape() const noexcept -> const auto & { return m_box.shape(); }
-
-	void translate(const mth::Point<int> &delta) noexcept
+	auto& flipLight(size_t idx)
 	{
-		m_box.shape().translate(delta);
-		for (auto &i : m_lights) i.translate(delta);
+		m_lights[idx].flipSwitch();
+		return *this;
 	}
 
-	void draw(sdl::Renderer *r)
+	auto& change(size_t idx, bool s)
 	{
-		r->color(sdl::BLACK);
-		m_box.draw(r).rect();
+		m_lights[idx].change(s);
+		return *this;
+	}
 
-		for (auto &l : m_lights) l.draw(r);
+	auto isOn(size_t idx) const noexcept
+	{
+		return m_lights[idx].isOn();
+	}
+
+	void draw()
+	{
+		m_r->color({ 0, 0, 0, 0xFF });
+		m_box.draw(m_r).rect();
+
+		for (auto& i : m_lights)
+			i.draw();
+	}
+
+	constexpr const auto& shape() const noexcept 
+	{
+		return m_box.shape(); 
+	}
+
+	auto& translate(const mth::Point<int>& delta) noexcept
+	{
+		m_box.shape().translate(delta);
+		for (auto& i : m_lights)
+			i.translate(delta);
+		return *this;
 	}
 
 private:
+	sdl::Renderer *m_r;
+
 	sdl::ERectFrame<sdl::Drawable> m_box;
-	std::vector<Light>			   m_lights;
+	std::vector<Light> m_lights;
 };

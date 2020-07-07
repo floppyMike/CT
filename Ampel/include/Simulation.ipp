@@ -24,14 +24,30 @@ public:
 
 		if (std::chrono::steady_clock::now() >= m_dur)
 		{
-			for (auto& i : *m_iter)
-				(*i)->flipTo(RoadLights::TrafficState::STOPPED);
+			auto nextSeq = _nextIter_();
 
-			_jumpNext_();
+			for (auto [iterPrev, iterNew] = std::pair(m_iter->begin(), nextSeq->begin()); iterPrev != m_iter->end(); ++iterPrev)
+			{
+				if ((*iterPrev)->get() == (*iterNew)->get() && (**iterPrev)->state() != (**iterNew)->state())
+				{
+					(**iterNew)->flip();
+					++iterNew;
+				}
+			}
+
+			m_iter = nextSeq;
 			m_dur = std::chrono::steady_clock::now() + DURATION;
 
-			for (auto& i : *m_iter)
-				(*i)->flipTo(RoadLights::TrafficState::PASSING);
+			//for (auto& i : *m_iter)
+			//{
+			//	(*i)->flipTo(RoadLights::TrafficState::STOPPED);
+			//}
+
+			//_jumpNext_();
+			//m_dur = std::chrono::steady_clock::now() + DURATION;
+
+			//for (auto& i : *m_iter)
+			//	(*i)->flipTo(RoadLights::TrafficState::PASSING);
 		}
 	}
 
@@ -42,7 +58,7 @@ public:
 
 		for (auto& i : *m_iter)
 		{
-			pthis->m_r->setColor(sdl::RED);
+			pthis->m_r->color(sdl::RED);
 			for (const auto& i : (*i)->lines)
 				i->draw();
 		}
@@ -61,5 +77,13 @@ private:
 	{
 		if (++m_iter == m_seq.end())
 			m_iter = m_seq.begin();
+	}
+
+	auto _nextIter_() noexcept -> SequenceDB::iterator
+	{
+		auto iter = m_iter + 1;
+		if (iter == m_seq.end())
+			iter = m_seq.begin();
+		return iter;
 	}
 };

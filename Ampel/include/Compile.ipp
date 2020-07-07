@@ -15,11 +15,6 @@ public:
 			pthis->m_state.set<App::SSimulation>(pthis, std::move(m_seqGen.get()));
 	}
 
-	void draw() override
-	{
-		return;
-	}
-
 private:
 	App* pthis;
 
@@ -35,11 +30,14 @@ private:
 	auto _generate_() -> SequenceDB
 	{
 		_eraseDupe_();
+		std::clog << "Duplicates erased.\n";
 
 		SequenceDB seq;
 
 		for (auto buffIter = pthis->m_roads.begin(); buffIter != pthis->m_roads.end(); ++buffIter)
 		{
+			std::clog << "New Traffic Squence allocate.\n";
+
 			seq.pushRow();
 			seq.push(buffIter);
 
@@ -47,11 +45,15 @@ private:
 			{
 				if (compIter == pthis->m_roads.end())
 				{
+					std::clog << "Loop reset.\n";
 					compIter = pthis->m_roads.begin();
 					continue;
 				}
 
+				std::clog << "Element address: " << compIter->get() << '\n';
+
 				if (!seq.checkIfUsed(compIter))
+					std::clog << "Element push.\n",
 					seq.push(compIter);
 
 				++compIter;
@@ -59,7 +61,7 @@ private:
 		}
 
 		seq.makeUnique();
-
+		seq.sort();
 		
 		return seq;
 	}

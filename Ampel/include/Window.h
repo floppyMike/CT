@@ -1,45 +1,57 @@
 #pragma once
 
 #include "Includes.h"
+#include "Application.h"
 
-#include "Setup.h"
-#include "Simulation.h"
-#include "RoadsDB.h"
 
-class Window
+class Window : public sdl::IWindow
 {
 	using Duration = std::chrono::steady_clock::duration;
 
+	//class SSetup;
+
 public:
 	Window()
-		: m_win("Ampel", WINDOW_DEFAULT_SIZE)
+		: m_win("Ampel", WINDOW_SIZE)
 		, m_rend(&m_win)
+		, m_app(&m_rend, &m_doRender)
 	{
-		m_state.set<Setup>(this);
 	}
 
-	void pre_pass() { m_state.update(); }
-	void event(const SDL_Event &e) { m_state->input(e); }
-	void update() { m_state->update(); }
+	void pre_pass()
+	{
+		m_app.pre_pass();
+	}
+
+	void event(const SDL_Event& e)
+	{
+		m_app.input(e);
+	}
+
+	void update()
+	{
+		m_app.update();
+	}
+
 	void fixed_update() {}
+
 	void render()
 	{
-		if (m_rend.will_render())
+		if (m_doRender)
 		{
-			m_rend.color({ 0xFF, 0xFF, 0xFF, 0xFF });
-			m_rend.render().fill(sdl::BLACK);
+			m_rend.render().fill(sdl::WHITE);
 
-			m_state->draw();
+			m_app.draw();
 
-			m_rend.render().render();
+			m_rend.render();
+			//m_doRender = false;
 		}
 	}
 
 private:
-	sdl::Window							  m_win;
-	sdl::ERenderer<sdl::LDelayedRenderer> m_rend;
+	sdl::Window m_win;
+	sdl::Renderer m_rend;
+	bool m_doRender = true;
 
-	TrafficLights m_roads;
-
-	sdl::StateManager<sdl::IState> m_state;
+	App m_app;
 };

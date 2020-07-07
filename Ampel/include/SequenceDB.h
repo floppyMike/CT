@@ -70,6 +70,17 @@ public:
 				return std::accumulate(s1.begin(), s1.end(), 0ull, summer) == std::accumulate(s2.begin(), s2.end(), uintptr_t(0), summer);
 			}), this->_().end());
 	}
+
+	void sort()
+	{
+		for (auto& i : this->_())
+		{
+			std::sort(i.begin(), i.end(), [](auto nodeIter1, auto nodeIter2)
+				{
+					return &*nodeIter1 > &* nodeIter2;
+				});
+		}
+	}
 };
 
 

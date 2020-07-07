@@ -1,40 +1,72 @@
 #pragma once
 
+#include "CustomLibrary/SDL/Drawable.h"
+#include "CustomLibrary/SDL/Geometry.h"
 #include "Includes.h"
 
-/*
-class Node
+
+template<template<typename> class... Func>
+class Node : public Func<Node<Func...>>...
 {
 public:
 	static constexpr mth::Dim<int> DIM = mth::Dim(5, 5);
 
-	explicit Node(const mth::Point<int> &p)
-		: Node(p.x, p.y)
+	Node(sdl::Renderer* r, const mth::Point<int>& p)
+		: m_r(r)
 	{
+		m_rect.shape({ p, DIM });
 	}
 
-	Node(int x, int y)
-		: m_rect({ x, y, DIM.w, DIM.h })
+	void translate(const mth::Point<int>& p) noexcept
 	{
+		m_rect.shape().translate(p);
 	}
 
-	void						 translate(const mth::Point<int> &p) noexcept { m_rect.shape().translate(p); }
-	[[nodiscard]] constexpr auto shape() const noexcept -> const auto & { return m_rect; }
+	constexpr const auto& shape() const noexcept
+	{
+		return m_rect.shape();
+	}
+
+	void draw()
+	{
+		m_rect.draw(m_r).filled_rect();
+	}
 
 private:
-	sdl::RectFrame m_rect;
+	sdl::Renderer *m_r;
+	sdl::ERectFrame<sdl::Drawable> m_rect;
 };
-*/
 
-static constexpr mth::Dim<int> NODE_DIM = { 5, 5 };
 
-using Node = sdl::RectFrame;
-
-/*
 template<typename T>
 class NodeOnMouse : public crtp<T, NodeOnMouse>
 {
 public:
-	bool isNodeOnMouse() const { return sdl::collision(this->_().shape(), mousePosition()); }
+	bool isNodeOnMouse() const
+	{
+		return sdl::collision(this->_().shape(), mousePosition());
+	}
 };
-*/
+
+
+using DNode = Node<NodeOnMouse>;
+
+
+
+//class NodeStart : Node
+//{
+//public:
+//	using Node::Node;
+//
+//	void draw()
+//	{
+//		m_rect.renderer()->setColor(sdl::RED);
+//		m_rect.drawFilled();
+//	}
+//
+//	using Node::shape;
+//	using Node::translate;
+//
+//private:
+//	std::vector<Node*> m_path;
+//};
