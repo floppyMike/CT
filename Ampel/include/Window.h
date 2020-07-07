@@ -43,7 +43,7 @@ public:
 
 			m_app.draw();
 
-			m_rend.render();
+			m_rend.render().render();
 			//m_doRender = false;
 		}
 	}
