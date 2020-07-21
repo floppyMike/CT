@@ -1,64 +1,59 @@
 #pragma once
 
 #include "Includes.h"
-#include "RoadsDB.h"
-#include "Selected.h"
-#include "SequenceDB.h"
 #include "NodeDB.h"
 #include "TrafficNodeDB.h"
 #include "LinkDB.h"
-#include "LinePlotter.h"
 
-class App
+class SSetup;
+class SSimulation;
+class SCompile;
+
+class App : public sdl::IWindow
 {
-	class SSetup;
-	class SSimulation;
-	class SCompile;
+	friend class SSetup;
+	friend class SSimulation;
+	friend class SCompile;
 
 public:
-	App(sdl::Renderer *r, bool *doRend);
+	App();
 
-	void pre_pass() { m_state.update(); }
+	void pre_pass() override { m_state.update(); }
+	void update() override { m_state->update(); }
+	void event(const SDL_Event &e) override { m_state->input(e); }
+	void fixed_update() override {}
 
-	void update() { m_state->update(); }
-
-	void input(const SDL_Event &e) { m_state->input(e); }
-
-	void draw()
+	void render() override
 	{
-		_drawNodes_();
+		m_rend.render().fill(sdl::WHITE);
+
 		m_state->draw();
+
+		m_rend.render().render();
 	}
 
 private:
-	sdl::Renderer *m_r;
+	sdl::Window	  m_win;
+	sdl::Renderer m_rend;
 
 	sdl::StateManager<sdl::IState> m_state;
 
-	TrafficNodeDB<TrafficNodeOnMouse, TrafficNodeDeleter> m_roads;
-	NodeDB<NodesOnMouse>								  m_nodes;
-	LinkDB<LinkRemover, LinkFinder>						  m_links;
-
-	bool *m_doRender;
-
-	void _drawNodes_()
-	{
-		m_r->color(sdl::BLACK);
-		for (auto &i : m_nodes) i->draw();
-	}
+	TrafficNodes m_roads;
+	Nodes		 m_nodes;
+	Links		 m_links;
 };
 
 //----------------------------------------------
-// Implementation
+// States
 //----------------------------------------------
 
-#include "Setup.ipp"
-#include "Compile.ipp"
-#include "Simulation.ipp"
+#include "Setup.h"
+// #include "Compile.h"
+// #include "Simulation.h"
 
-App::App(sdl::Renderer *r, bool *doRend)
-	: m_r(r)
-	, m_doRender(doRend)
+App::App()
+	: m_win("Ampel", WINDOW_SIZE)
+	, m_rend(&m_win)
 {
 	m_state.set<SSetup>(this);
 	m_state.update();

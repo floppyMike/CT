@@ -1,51 +1,54 @@
 #pragma once
 
-#include "CustomLibrary/SDL/Drawable.h"
-#include "CustomLibrary/SDL/Geometry.h"
+#include "CustomLibrary/Line.h"
 #include "Includes.h"
 #include "Node.h"
 
-
-template<template<typename> class... Func>
-class Link : public Func<Link<Func...>>...
+class Link
 {
 public:
-	Link(sdl::Renderer* r, const mth::Line<int>& l)
-		: m_r(r)
+	explicit Link(const mth::Line<int> &l)
+		: m_line(l)
 	{
-		m_line.shape(l);
 	}
 
-	auto& fromNode(DNode* const ptr) noexcept { m_nodes.first = ptr; return *this; }
-	auto* fromNode() noexcept { return m_nodes.first; }
-
-	auto& toNode(DNode* const ptr) noexcept { m_nodes.second = ptr; return *this; }
-	auto& toNode() noexcept { return m_nodes.second; }
-
-	const auto& shape() const noexcept { return m_line.shape(); }
-	auto& shape(const mth::Line<int>& l) noexcept { m_line.shape(l); return *this; }
-
-	void draw()
+	auto from_node(Node *const ptr) noexcept
 	{
-		m_line.draw(m_r).line();
+		m_nodes.first = ptr;
+		m_line.shape().pos1(ptr->shape().w / 2 + ptr->shape().x, ptr->shape().h / 2 + ptr->shape().y);
+	}
+	[[nodiscard]] auto from_node() const noexcept { return m_nodes.first; }
+
+	auto to_node(Node *const ptr) noexcept
+	{
+		m_nodes.second = ptr;
+		m_line.shape().pos2(ptr->shape().w / 2 + ptr->shape().x, ptr->shape().h / 2 + ptr->shape().y);
+	}
+	[[nodiscard]] auto to_node() const noexcept { return m_nodes.second; }
+	auto			   to_node(const mth::Point<int> &p) noexcept { m_line.shape().pos2(p); }
+
+	auto uses_node(Node *const ptr) const noexcept { return ptr == m_nodes.first || ptr == m_nodes.second; }
+
+	[[nodiscard]] auto shape() const noexcept -> const auto & { return m_line.shape(); }
+
+	auto operator==(const Link &l) const noexcept { return l.m_nodes != m_nodes; }
+
+	friend auto operator<<(sdl::Renderer &r, const Link &l) -> sdl::Renderer &
+	{
+		l.m_line.draw(&r).line();
+		return r;
 	}
 
 private:
-	sdl::Renderer *m_r;
-	std::pair<DNode*, DNode*> m_nodes;
+	std::pair<Node *, Node *>	   m_nodes = { nullptr, nullptr };
 	sdl::ELineFrame<sdl::Drawable> m_line;
 };
 
-
+/*
 template<typename T>
 class LinkComparison : public crtp<T, LinkComparison>
 {
 public:
-	bool compareWith(const DNode* const n) noexcept
-	{
-		return n == this->_().fromNode() || n == this->_().toNode();
-	}
+	bool compareWith(const DNode *const n) noexcept { return n == this->_().fromNode() || n == this->_().toNode(); }
 };
-
-
-using DLink = Link<LinkComparison>;
+*/

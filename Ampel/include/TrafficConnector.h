@@ -11,7 +11,7 @@ public:
 	TrafficConnector(sdl::Renderer* r, const mth::Point<int>& pos)
 		: RoadLights(r, pos)
 		, m_r(r)
-		, m_out(r, { pos.x + (RoadLights::WIDTH >> 1), pos.y + m_veh.shape().h + IN_OUT_DIS })
+		, m_out(r, { pos.x + (WIDTH >> 1), pos.y + m_veh.shape().h + IN_OUT_DIS })
 		, m_in(r, { pos.x + (RoadLights::WIDTH >> 1) + WIDTH, pos.y + m_veh.shape().h + IN_OUT_DIS })
 	{
 	}
@@ -49,6 +49,9 @@ public:
 	using RoadLights::flipTo;
 	using RoadLights::state;
 	using RoadLights::flip;
+
+	using RoadLights::vehLight;
+	using RoadLights::pedLight;
 
 private:
 	sdl::Renderer* m_r;

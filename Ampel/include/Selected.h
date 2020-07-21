@@ -1,18 +1,16 @@
 #pragma once
 
 #include "Includes.h"
+#include "RoadsDB.h"
 
 class Selected
 {
 public:
-	Selected(sdl::Renderer* r)
-		: m_r(r)
-	{
-	}
+	Selected() = default;
 
-	auto select(std::unique_ptr<DTrafficNode>&& ptr) noexcept
+	auto select(std::unique_ptr<TrafficNode> &&ptr) noexcept
 	{
-		auto old = std::move(m_selected);
+		auto old   = std::move(m_selected);
 		m_selected = std::move(ptr);
 
 		const auto shape = m_selected->shape();
@@ -21,53 +19,41 @@ public:
 		return old;
 	}
 
-	std::unique_ptr<DTrafficNode> clear() noexcept
+	auto clear() noexcept -> std::unique_ptr<TrafficNode>
 	{
-		auto temp = std::move(m_selected);
+		auto temp  = std::move(m_selected);
 		m_selected = nullptr;
 
 		return temp;
 	}
 
-	auto* get() noexcept
+	auto get() noexcept -> auto *
 	{
 		assert(m_selected && "No selected TrafficNode.");
 		return m_selected.get();
 	}
 
-	bool isSelected() const noexcept
+	[[nodiscard]] auto is_selected() const noexcept -> bool { return m_selected.operator bool(); }
+
+	auto is_selected(TrafficNode *ptr) const noexcept -> bool { return m_selected.get() == ptr; }
+
+	friend auto operator<<(sdl::Renderer &r, const Selected &s) -> sdl::Renderer &
 	{
-		return m_selected.operator bool();
-	}
+		if (!s.m_selected)
+			return r;
 
-	bool isSelected(DTrafficNode* ptr) const noexcept
-	{
-		return m_selected.get() == ptr;
-	}
+		r.color(sdl::GREEN);
+		s.m_box.draw(&r).rect();
 
-	void eraseLinks()
-	{
+		r << *s.m_selected;
 
-	}
+		r.color(sdl::BLUE);
+		for (const auto &i : s.m_selected->links()) r << *i;
 
-	void draw()
-	{
-		if (m_selected != nullptr)
-		{
-			m_r->color(sdl::GREEN);
-			m_box.draw(m_r).rect();
-
-			m_r->color(sdl::BLACK);
-			m_selected->draw();
-
-			m_r->color(sdl::BLUE);
-			for (auto& i : m_selected->lines)
-				i->draw();
-		}
+		return r;
 	}
 
 private:
-	sdl::Renderer *m_r;
-	std::unique_ptr<DTrafficNode> m_selected = nullptr;
+	std::unique_ptr<TrafficNode>   m_selected = nullptr;
 	sdl::ERectFrame<sdl::Drawable> m_box;
 };

@@ -1,66 +1,33 @@
 #pragma once
 
-#include "CustomLibrary/SDL/Geometry.h"
 #include "Includes.h"
 
 class Light
 {
-	static constexpr std::array<SDL_Color, 3> COLORS = { sdl::RED, sdl::YELLOW, sdl::GREEN };
-
 public:
-	enum Color { RED, YELLOW, GREEN };
-
-	Light(sdl::Renderer* rend, const mth::Circle<int, Uint32>& c, Color col) noexcept
-		: m_r(rend)
-		, m_circle(c)
+	Light(const mth::Circle<int, Uint32> &c, SDL_Color col) noexcept
+		: m_circle(c)
 		, m_color(col)
 	{
 	}
 
-	Light& flipSwitch() noexcept
-	{
-		m_on = !m_on;
-		return *this;
-	}
+	auto						 change(bool s) noexcept { m_color.a = s ? 0xFF : 0; }
+	[[nodiscard]] auto			 is_on() const noexcept { return m_color.a == 0xFF; }
+	constexpr auto				 translate(const mth::Point<int> &delta) noexcept { m_circle.shape().translate(delta); }
+	[[nodiscard]] constexpr auto shape() const noexcept -> const auto & { return m_circle.shape(); }
 
-	Light& change(bool s) noexcept
+	friend auto operator<<(sdl::Renderer &r, const Light &l) -> sdl::Renderer &
 	{
-		m_on = s;
-		return *this;
-	}
+		r.color(l.m_color);
+		l.m_circle.draw(&r).filled_circle();
 
-	auto isOn() const noexcept
-	{
-		return m_on;
-	}
+		r.color({ 0, 0, 0, 0xFF });
+		l.m_circle.draw(&r).circle();
 
-	constexpr auto& translate(const mth::Point<int>& delta) noexcept
-	{
-		m_circle.shape().translate(delta);
-		return *this;
-	}
-
-	constexpr const auto& shape() const noexcept
-	{
-		return m_circle.shape();
-	}
-
-	void draw()
-	{
-		if (m_on)
-		{
-			m_r->color(COLORS[m_color]);
-			m_circle.draw(m_r).filled_circle();
-		}
-
-		m_r->color({ 0, 0, 0, 0xFF });
-		m_circle.draw(m_r).circle();
+		return r;
 	}
 
 private:
-	sdl::Renderer *m_r;
-
 	sdl::ECircleFrame<sdl::Drawable> m_circle;
-	Color m_color;
-	bool m_on = false;
+	SDL_Color						 m_color;
 };

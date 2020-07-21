@@ -3,59 +3,41 @@
 #include "Includes.h"
 #include "Line.h"
 
-
 class LinePlotter
 {
 public:
-	LinePlotter(sdl::Renderer* r)
-		: m_r(r)
+	LinePlotter() = default;
+
+	void spawn(Node *from) noexcept
 	{
+		m_selected =
+			std::make_unique<Link>(mth::Line{ { from->shape().x + 2, from->shape().y + 2 }, sdl::mouse_position() });
+
+		m_selected->from_node(from);
 	}
 
-	void spawn(DNode* from) noexcept
+	auto place(Node *to) noexcept
 	{
-		m_selected = std::make_unique<DLink>(m_r,
-			mth::Line{ { from->shape().x + 2, from->shape().y + 2 }, mousePosition() });
-
-		m_selected->fromNode(from);
-	}
-
-	auto place(DNode* to) noexcept
-	{
-		m_selected->shape({ m_selected->shape().pos1(), { to->shape().pos() + mth::Point(2, 2) } }).toNode(to);
+		m_selected->to_node(to);
 		return std::move(m_selected);
 	}
 
-	void clear() noexcept
-	{
-		m_selected = nullptr;
-	}
+	void			   clear() noexcept { m_selected = nullptr; }
+	auto			   get() noexcept -> auto * { return m_selected.get(); }
+	[[nodiscard]] auto is_made() const noexcept -> bool { return m_selected.operator bool(); }
+	auto			   sync_mouse() noexcept { m_selected->to_node(sdl::mouse_position()); }
 
-	auto* get() noexcept
+	friend auto operator<<(sdl::Renderer &r, const LinePlotter &lp) -> sdl::Renderer &
 	{
-		return m_selected.get();
-	}
+		if (!lp.m_selected)
+			return r;
 
-	bool isMade() const noexcept
-	{
-		return m_selected.operator bool();
-	}
+		r.color(sdl::ORANGE);
+		r << *lp.m_selected;
 
-	void translateEnd(const mth::Point<int>& delta)
-	{
-		m_selected->shape({ m_selected->shape().pos1(), delta });
-	}
-
-	void draw()
-	{
-		if (m_selected)
-		{
-			m_r->color(sdl::ORANGE);
-			m_selected->draw();
-		}
+		return r;
 	}
 
 private:
-	sdl::Renderer* m_r;
-	std::unique_ptr<DLink> m_selected;
+	std::unique_ptr<Link> m_selected;
 };

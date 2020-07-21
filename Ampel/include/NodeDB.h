@@ -3,24 +3,15 @@
 #include "Includes.h"
 #include "Node.h"
 
-template<template<typename> class... Func>
-class NodeDB : std::vector<std::unique_ptr<DNode>>, public Func<NodeDB<Func...>>...
+using Nodes = std::vector<std::unique_ptr<Node>>;
+
+auto operator<<(sdl::Renderer &r, const Nodes &ns) noexcept -> sdl::Renderer &
 {
-	using baseV = std::vector<std::unique_ptr<DNode>>;
+	for (const auto &n : ns) r << *n;
+	return r;
+}
 
-public:
-	NodeDB() = default;
-
-	using baseV::begin;
-	using baseV::rbegin;
-	using baseV::end;
-	using baseV::rend;
-
-	using baseV::emplace_back;
-	using baseV::erase;
-};
-
-
+/*
 template<typename T>
 class NodesOnMouse : public crtp<T, NodesOnMouse>
 {
@@ -35,3 +26,4 @@ public:
 		return select;
 	}
 };
+*/

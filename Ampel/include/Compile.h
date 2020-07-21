@@ -2,11 +2,11 @@
 class App::SCompile : public sdl::IState
 {
 public:
-	SCompile(App* app)
+	SCompile(App *app)
 		: pthis(app)
 	{
 		*pthis->m_doRender = false;
-		m_seqGen = std::async(std::launch::async, [this] { return _generate_(); });
+		m_seqGen		   = std::async(std::launch::async, [this] { return _generate_(); });
 	}
 
 	void update() override
@@ -16,15 +16,13 @@ public:
 	}
 
 private:
-	App* pthis;
+	App *pthis;
 
 	std::future<SequenceDB> m_seqGen;
 
-
 	void _eraseDupe_()
 	{
-		for (auto& i : pthis->m_roads)
-			i->nodes.erase(std::unique(i->nodes.begin(), i->nodes.end()), i->nodes.end());
+		for (auto &i : pthis->m_roads) i->nodes.erase(std::unique(i->nodes.begin(), i->nodes.end()), i->nodes.end());
 	}
 
 	auto _generate_() -> SequenceDB
@@ -39,7 +37,7 @@ private:
 			std::clog << "New Traffic Squence allocate.\n";
 
 			seq.pushRow();
-			seq.push(buffIter);
+			seq.push(*buffIter);
 
 			for (auto compIter = buffIter + 1; compIter != buffIter;)
 			{
@@ -52,17 +50,28 @@ private:
 
 				std::clog << "Element address: " << compIter->get() << '\n';
 
-				if (!seq.checkIfUsed(compIter))
-					std::clog << "Element push.\n",
-					seq.push(compIter);
+				if (!seq.checkIfUsed(*compIter))
+					std::clog << "Element push.\n", seq.push(*compIter);
 
 				++compIter;
 			}
 		}
 
-		seq.makeUnique();
-		seq.sort();
-		
+		// Make unique
+		seq.erase(std::unique(seq.begin(), seq.end(),
+							  [](const Sequence &s1, const Sequence &s2) {
+								  auto summer = [](auto s, auto iter) { return s + reinterpret_cast<uintptr_t>(iter); };
+								  return std::accumulate(s1.begin(), s1.end(), 0ull, summer)
+									  == std::accumulate(s2.begin(), s2.end(), uintptr_t(0), summer);
+							  }),
+				  seq.end());
+
+		// sort
+		/*
+		for (auto &i : seq)
+			std::sort(i.begin(), i.end(), [](auto nodeIter1, auto nodeIter2) { return &*nodeIter1 > &*nodeIter2; });
+			*/
+
 		return seq;
 	}
 };

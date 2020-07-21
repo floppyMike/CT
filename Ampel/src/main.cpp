@@ -1,13 +1,13 @@
 #include "Includes.h"
-#include "Window.h"
+#include "Application.h"
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
 	try
 	{
 		sdl::SDL sdl;
 
-		Window						win;
+		App							win;
 		sdl::RunLoop<decltype(win)> run;
 		run.add_window(&win);
 
