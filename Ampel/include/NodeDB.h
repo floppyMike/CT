@@ -7,6 +7,7 @@ using Nodes = std::vector<std::unique_ptr<Node>>;
 
 auto operator<<(sdl::Renderer &r, const Nodes &ns) noexcept -> sdl::Renderer &
 {
+	r.color(sdl::BLACK);
 	for (const auto &n : ns) r << *n;
 	return r;
 }

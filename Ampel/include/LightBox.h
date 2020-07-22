@@ -17,7 +17,7 @@ public:
 		m_lights.reserve(colors.size());
 		for (int i = 0; i < colors.size(); ++i)
 		{
-			const mth::Circle<int, Uint32> cir(coord.x + width / 2, coord.y + pause + radius + i * (radius / 2 + pause),
+			const mth::Circle<int, Uint32> cir(coord.x + width / 2, coord.y + pause + radius + i * (radius * 2 + pause),
 											   radius);
 			const auto &				   col = *(colors.begin() + i);
 

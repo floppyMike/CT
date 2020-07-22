@@ -62,7 +62,7 @@ public:
 
 	void draw() override
 	{
-		pthis->m_rend << m_linePlot << pthis->m_roads << m_selected_node;
+		pthis->m_rend << m_linePlot << pthis->m_roads << m_selected_node << pthis->m_nodes;
 	}
 
 private:

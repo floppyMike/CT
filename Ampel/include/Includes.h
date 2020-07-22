@@ -13,6 +13,7 @@
 #include <future>
 #include <numeric>
 #include <iostream>
+#include <concepts>
 
 using namespace ctl;
 using namespace std::chrono_literals;
