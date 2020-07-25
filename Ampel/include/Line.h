@@ -11,7 +11,9 @@ public:
 	{
 	}
 
-	auto from_node(Node *const ptr) noexcept
+	explicit Link(Link *l) { link_from(*l); }
+
+	auto from_node(Node *const ptr) noexcept -> void
 	{
 		m_nodes.first = ptr;
 		m_line.shape().pos1(ptr->shape().w / 2 + ptr->shape().x, ptr->shape().h / 2 + ptr->shape().y);
@@ -25,10 +27,7 @@ public:
 	}
 	[[nodiscard]] auto to_node() const noexcept { return m_nodes.second; }
 
-	auto link_from(Link &l) noexcept
-	{
-		from_node(l.m_nodes.first);
-	}
+	auto link_from(Link &l) noexcept -> void { from_node(l.m_nodes.first); }
 
 	auto move_endpoint(const mth::Point<int> &p)
 	{

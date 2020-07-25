@@ -93,7 +93,9 @@ private:
 	{
 		if (m_selected_node.is_selected() && sdl::collision(m_selected_node.get()->shape(), sdl::mouse_position()))
 		{
-			_strip_links_(m_selected_node.get());
+			for (auto *tn : m_selected_node.get()->links())
+				pthis->m_graph.remove_link(tn);
+
 			m_selected_node.clear();
 		}
 

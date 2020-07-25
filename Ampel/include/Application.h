@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Includes.h"
+#include "Line.h"
+#include "LinkDB.h"
 #include "NodeDB.h"
 #include "TrafficNodeDB.h"
-#include "LinkDB.h"
-#include "Line.h"
 
 class Graph
 {
@@ -14,32 +14,43 @@ public:
 	void strip_links(const Node *const node)
 	{
 		m_links.erase(std::remove_if(m_links.begin(), m_links.end(),
-											[node](const std::unique_ptr<Link> &l) {
-												return l->uses_node(node);
-											}),
-							 m_links.end());
+									 [node](const std::unique_ptr<Link> &l) { return l->uses_node(node); }),
+					  m_links.end());
 	}
 
-	void create_node(const mth::Point<int> &pos) { m_nodes.emplace_back(std::make_unique<Node>(mth::Rect(pos, NODE_DIM))); }
-
-	void spawn_line(const std::vector<Link*> &chain)
+	void create_node(const mth::Point<int> &pos)
 	{
-		assert(m_links.back()->to_node() != nullptr && "Link search can't have set Link");
+		m_nodes.emplace_back(std::make_unique<Node>(mth::Rect(pos, NODE_DIM)));
+	}
+
+	auto create_line(const std::vector<Link *> &chain, const mth::Point<int> &p) noexcept
+	{
+		assert(m_links.back()->to_node() != nullptr && "Link search must have set Link");
 
 		Link *from_node = nullptr;
 
 		if (const auto select = std::find_if(chain.rbegin(),
-			chain.rend(), // Using reverse iterator for quicker responce
-							// newer things get deleted quicker
-			[](Link* l) { return sdl::collision(l->to_node()->shape(), sdl::mouse_position()); }); select != chain.rend())
+											 chain.rend(), // Using reverse iterator for quicker responce
+														   // newer things get deleted quicker
+											 [&p](Link *l) { return sdl::collision(l->to_node()->shape(), p); });
+			select != chain.rend())
 			from_node = *select;
-		else
-			return;
+
+		m_links.emplace_back(from_node);
+		m_links.back()->move_endpoint(m_links.back()->from_node()->shape().pos());
 	}
 
+	auto move_endpoint(const mth::Point<int> &p) noexcept
+	{
+		assert(m_links.back()->to_node() != nullptr && "Link movment must have set Link");
+		m_links.back()->move_endpoint(p);
+	}
+
+	void remove_link(Link *l) { m_links.erase(std::find(m_links.begin(), m_links.end(), l)); }
+
 private:
-	Nodes		 m_nodes;
-	Links		 m_links;
+	Nodes m_nodes;
+	Links m_links;
 };
 
 class SSetup;
@@ -75,6 +86,7 @@ private:
 
 	sdl::StateManager<sdl::IState> m_state;
 
+	Graph		 m_graph;
 	TrafficNodes m_roads;
 	Nodes		 m_nodes;
 	Links		 m_links;

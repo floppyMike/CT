@@ -1,5 +1,6 @@
-#include "Includes.h"
 #include "Application.h"
+#include "Includes.h"
+
 
 auto main(int argc, char **argv) -> int
 {
