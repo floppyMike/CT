@@ -13,6 +13,12 @@ auto find_link(Iter beg, Iter end, Node *from,
 				 [from, to](const std::unique_ptr<Link> &l) { return l->uses_node(from) && l->uses_node(to); });
 }
 
+template<typename Arr>
+auto range_collided(const Arr &arr) requires std::same_as<decltype(arr[0]), Link*>
+{
+	
+}
+
 auto operator<<(sdl::Renderer &r, const Links &ls) noexcept -> sdl::Renderer &
 {
 	for (const auto &l : ls) r << *l;

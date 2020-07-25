@@ -32,10 +32,11 @@ concept has_shape = requires(const T &t)
 };
 
 template<typename Arr>
-auto range_collided(Arr &arr) requires has_shape<decltype(arr[0])>
+auto range_collided(const Arr &arr) requires has_shape<decltype(arr[0])>
 {
 	return std::find_if(std::rbegin(arr),
 						std::rend(arr), // Using reverse iterator for quicker responce
 										// newer things get deleted quicker
 						[](const auto &tn) { return sdl::collision(tn->shape(), sdl::mouse_position()); });
 }
+

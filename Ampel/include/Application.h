@@ -4,6 +4,43 @@
 #include "NodeDB.h"
 #include "TrafficNodeDB.h"
 #include "LinkDB.h"
+#include "Line.h"
+
+class Graph
+{
+public:
+	Graph() = default;
+
+	void strip_links(const Node *const node)
+	{
+		m_links.erase(std::remove_if(m_links.begin(), m_links.end(),
+											[node](const std::unique_ptr<Link> &l) {
+												return l->uses_node(node);
+											}),
+							 m_links.end());
+	}
+
+	void create_node(const mth::Point<int> &pos) { m_nodes.emplace_back(std::make_unique<Node>(mth::Rect(pos, NODE_DIM))); }
+
+	void spawn_line(const std::vector<Link*> &chain)
+	{
+		assert(m_links.back()->to_node() != nullptr && "Link search can't have set Link");
+
+		Link *from_node = nullptr;
+
+		if (const auto select = std::find_if(chain.rbegin(),
+			chain.rend(), // Using reverse iterator for quicker responce
+							// newer things get deleted quicker
+			[](Link* l) { return sdl::collision(l->to_node()->shape(), sdl::mouse_position()); }); select != chain.rend())
+			from_node = *select;
+		else
+			return;
+	}
+
+private:
+	Nodes		 m_nodes;
+	Links		 m_links;
+};
 
 class SSetup;
 class SSimulation;

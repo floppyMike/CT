@@ -25,7 +25,7 @@ public:
 				case SDLK_c: _create_traffic_light_(); break;
 
 				case SDLK_d:
-					_deleteTrafficNode_();
+					_delete_TrafficNode_();
 					//_deleteNode_();
 					break;
 
@@ -42,7 +42,7 @@ public:
 
 		case SDL_MOUSEBUTTONDOWN:
 			if (m_selected_node.is_selected())
-				_spawnLine_();
+				_spawn_line_();
 			_select_();
 			break;
 
@@ -89,7 +89,7 @@ private:
 							 pthis->m_links.end());
 	}
 
-	void _deleteTrafficNode_()
+	void _delete_TrafficNode_()
 	{
 		if (m_selected_node.is_selected() && sdl::collision(m_selected_node.get()->shape(), sdl::mouse_position()))
 		{
@@ -123,14 +123,17 @@ private:
 		// pthis->m_state.set<SCompile>(pthis);
 	}
 
-	void _spawnLine_()
+	void _spawn_line_()
 	{
 		Node *from_node = nullptr;
 
 		if (sdl::collision(m_selected_node.get()->out_node().shape(), sdl::mouse_position()))
 			from_node = &m_selected_node.get()->out_node();
-		else if (const auto select = range_collided(pthis->m_nodes); select != pthis->m_nodes.rend())
-			from_node = select->get();
+		else if (const auto select = std::find_if(m_selected_node.get()->links().rbegin(),
+						m_selected_node.get()->links().rend(), // Using reverse iterator for quicker responce
+										// newer things get deleted quicker
+						[](Link* l) { return sdl::collision(l->to_node()->shape(), sdl::mouse_position()); }); select != pthis->m_nodes.rend())
+			from_node = select->to_node();
 		else
 			return;
 
